@@ -1,0 +1,181 @@
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
+import React, {useState} from 'react';
+import AppHeader from '../../components/appHeader/AppHeader';
+import {Checkbox, TextInput, useTheme} from 'react-native-paper';
+import InputHeader from '../../components/Input/InputHeader';
+import {useSelector} from 'react-redux';
+import InputField from '../../components/Input/InputField';
+import Iconicon from 'react-native-vector-icons/Ionicons';
+import PrimaryButton from '../../components/button/PrimaryButton';
+import {isPlatformIOS} from '../../../utils/global';
+
+export default function Register() {
+  let {colors} = useTheme();
+  let {lang, translations} = useSelector(state => state.setting);
+  const PageContent = translations?.Register?.[lang];
+  const {
+    screenName,
+    header1,
+    nameinput,
+    emailinput,
+    contactinput,
+    whatsappinput,
+    first_checkbox,
+    dobinput,
+    header2,
+    passwordinput,
+    confirm_pass,
+    second_checkbox,
+    regBtn,
+  } = PageContent;
+
+  const [checked, setChecked] = useState(false);
+
+  return (
+    <>
+      <AppHeader screenName={screenName} />
+      <KeyboardAvoidingView
+        behavior={isPlatformIOS ? 'padding' : 'height'} // Adjust behavior for iOS
+        className="flex-1 justify-center "
+        keyboardVerticalOffset={5} // Adjust this value as needed
+      >
+        <SafeAreaView className="flex-1 justify-center">
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View className="flex-1 ">
+              <ScrollView
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
+                style={{backgroundColor: colors.background_default}}
+                className="flex-1 ">
+                {/* header 1 */}
+                <InputHeader label={header1} />
+
+                {/* first container */}
+                <View className="p-3 py-2 pb-4  flex-column ">
+                  <InputField label={nameinput} />
+                  <InputField label={emailinput} />
+
+                  {/* Contact Number input */}
+                  <View className="flex-row space-x-3">
+                    <View>
+                      <InputField label={'+91'} />
+                    </View>
+                    <View className="flex-1">
+                      <InputField label={contactinput} />
+                    </View>
+                  </View>
+
+                  {/* whatsapp Number input */}
+                  <View className="flex-row space-x-3">
+                    <View>
+                      <InputField label={'+91'} />
+                    </View>
+                    <View className="flex-1">
+                      <InputField label={whatsappinput} />
+                    </View>
+                  </View>
+
+                  {/* first checkbox */}
+                  <View className="flex-row space-x-1 items-center my-0.5">
+                    <Checkbox.Android
+                      status={checked ? 'checked' : 'unchecked'}
+                      onPress={() => {
+                        setChecked(!checked);
+                      }}
+                    />
+                    <Text
+                      className="font-regular  text-sm"
+                      style={{color: colors.text_disabled}}>
+                      {first_checkbox}
+                    </Text>
+                  </View>
+
+                  {/* DOB */}
+                  <InputField
+                    label={dobinput}
+                    righticon={
+                      <TextInput.Icon
+                        icon={() => (
+                          <Iconicon
+                            name="calendar"
+                            size={24}
+                            color={colors.iconColor}
+                          />
+                        )}
+                      />
+                    }
+                  />
+                </View>
+
+                {/* header 2 */}
+                <InputHeader label={header2} />
+
+                {/* second container */}
+                <View className="p-3 py-2 pb-4  flex-column ">
+                  <InputField
+                    label={passwordinput}
+                    righticon={
+                      <TextInput.Icon
+                        icon={() => (
+                          <Iconicon
+                            name="eye"
+                            size={24}
+                            color={colors.iconColor}
+                          />
+                        )}
+                      />
+                    }
+                  />
+
+                  <InputField
+                    label={confirm_pass}
+                    righticon={
+                      <TextInput.Icon
+                        icon={() => (
+                          <Iconicon
+                            name="eye"
+                            size={24}
+                            color={colors.iconColor}
+                          />
+                        )}
+                      />
+                    }
+                  />
+
+                  {/* second checkbox */}
+                  <View className="flex-row space-x-1 items-center my-0.5 mb-8">
+                    <Checkbox.Android
+                      status={checked ? 'checked' : 'unchecked'}
+                      onPress={() => {
+                        setChecked(!checked);
+                      }}
+                    />
+                    <Text
+                      className="font-regular  text-sm"
+                      style={{color: colors.text_disabled}}>
+                      {second_checkbox}
+                    </Text>
+                  </View>
+                </View>
+              </ScrollView>
+              <View className="px-2">
+                <PrimaryButton label={regBtn} />
+              </View>
+            </View>
+          </TouchableWithoutFeedback>
+        </SafeAreaView>
+      </KeyboardAvoidingView>
+    </>
+  );
+}
+
+const styles = StyleSheet.create({});

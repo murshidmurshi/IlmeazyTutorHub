@@ -1,0 +1,14 @@
+{
+  "en": {
+    "Login": {
+      "greeting": "Welcome to ILMEAZY Tutor Hub",
+      "loginchild": "Enter your email and password to login"
+    }
+  },
+  "ar": {
+    "Login": {
+      "greeting": "مرحبًا بك في ILMEAZY Tutor Hub",
+      "loginchild": "أدخل بريدك الإلكتروني وكلمة المرور لتسجيل الدخول"
+    }
+  }
+}
