@@ -18,30 +18,12 @@ import Iconicon from 'react-native-vector-icons/Ionicons';
 import PrimaryButton from '../../components/button/PrimaryButton';
 import {isPlatformIOS} from '../../../utils/global';
 import {useTranslation} from 'react-i18next';
+import {useNavigation} from '@react-navigation/native';
 
 export default function Register() {
   let {colors} = useTheme();
-  let {lang, translations} = useSelector(state => state.setting);
-  // const PageContent = translations?.Register?.[lang];
-  // const {
-  //   screenName,
-  //   header1,
-  //   nameinput,
-  //   emailinput,
-  //   contactinput,
-  //   whatsappinput,
-  //   first_checkbox,
-  //   dobinput,
-  //   header2,
-  //   passwordinput,
-  //   confirm_pass,
-  //   second_checkbox,
-  //   regBtn,
-  // } = PageContent;
-
+  let navigation = useNavigation();
   const {t} = useTranslation();
-  // const PageContent = translations?.Login?.[lang];
-
   // Extract Register translations
   const RegisterContent = {
     screenName: t('Register.screenName'),
@@ -56,6 +38,7 @@ export default function Register() {
     passwordinput: t('Register.passwordinput'),
     confirm_pass: t('Register.confirm_pass'),
     second_checkbox: t('Register.second_checkbox'),
+    second_checkbox_underline: t('Register.second_checkbox_underline'),
     regBtn: t('Register.regBtn'),
   };
 
@@ -72,11 +55,14 @@ export default function Register() {
     header2,
     confirm_pass,
     second_checkbox,
+    second_checkbox_underline,
     regBtn,
   } = RegisterContent;
 
   const [checked, setChecked] = useState(false);
-
+  const handleRegister = () => {
+    navigation.navigate('Parent');
+  };
   return (
     <>
       <AppHeader screenName={screenName} />
@@ -95,7 +81,6 @@ export default function Register() {
                 className="flex-1 pb-4">
                 {/* header 1 */}
                 <InputHeader label={header1} />
-
                 {/* first container */}
                 <View className="p-3 py-2 pb-4  flex-column ">
                   <InputField label={nameinput} />
@@ -187,26 +172,32 @@ export default function Register() {
                       />
                     }
                   />
+                </View>
+              </ScrollView>
+              {/* Fixed Bottom Button */}
+              <View className="absolute bottom-2 left-0 right-0 p-4 bg-white shadow-xl">
+                {/* Second checkbox */}
+                <View className="flex-row space-x-1 items-center mb-2">
+                  <Checkbox.Android
+                    status={checked ? 'checked' : 'unchecked'}
+                    onPress={() => setChecked(!checked)}
+                  />
 
-                  {/* second checkbox */}
-                  <View className="flex-row space-x-1 items-center my-0.5 mb-8">
-                    <Checkbox.Android
-                      status={checked ? 'checked' : 'unchecked'}
-                      onPress={() => {
-                        setChecked(!checked);
-                      }}
-                    />
+                  <View className="flex-row ">
                     <Text
-                      className="font-regular  text-sm"
+                      className="font-regular text-sm"
                       style={{color: colors.text_disabled}}>
                       {second_checkbox}
                     </Text>
+                    <Text
+                      className="font-regular text-sm underline"
+                      style={{color: colors.text_disabled}}>
+                      {second_checkbox_underline}
+                    </Text>
                   </View>
                 </View>
-                <View className="px-2">
-                  <PrimaryButton label={regBtn} />
-                </View>
-              </ScrollView>
+                <PrimaryButton label={regBtn} onPress={handleRegister} />
+              </View>
             </View>
           </TouchableWithoutFeedback>
         </SafeAreaView>

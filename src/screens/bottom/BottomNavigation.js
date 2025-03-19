@@ -1,34 +1,46 @@
 import * as React from 'react';
-import {BottomNavigation, Text} from 'react-native-paper';
+import {BottomNavigation, Text, useTheme} from 'react-native-paper';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-const MusicRoute = () => <Text>Music</Text>;
-const AlbumsRoute = () => <Text>Albums</Text>;
-const RecentsRoute = () => <Text>Recents</Text>;
-const NotificationsRoute = () => <Text>Notifications</Text>;
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Home from '../TabPage/Home';
+import Chat from '../TabPage/Chat';
+
+const HomeRoute = () => <Text>Home</Text>;
+const ChatRoute = () => <Text>Chat</Text>;
+const DocumentsRoute = () => <Text>Documents</Text>;
+const menuRoute = () => <Text>menu</Text>;
+
 const MainNavigation = () => {
   const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState([
+  const {colors} = useTheme();
+
+  const routes = [
+    {key: 'home', title: 'Home', icon: 'home-outline', activeIcon: 'home'},
     {
-      key: 'music',
-      title: 'Favorites',
-      focusedIcon: 'heart',
-      unfocusedIcon: 'heart-outline',
+      key: 'chat',
+      title: 'Chat',
+      icon: 'chatbubble-outline',
+      activeIcon: 'chatbubble',
     },
-    {key: 'albums', title: 'Albums', focusedIcon: 'album'},
-    {key: 'recents', title: 'Recents', focusedIcon: 'history'},
     {
-      key: 'notifications',
-      title: 'Notifications',
-      focusedIcon: 'bell',
-      unfocusedIcon: 'bell-outline',
+      key: 'documents',
+      title: 'Documents',
+      icon: 'document-text-outline',
+      activeIcon: 'document-text',
     },
-  ]);
+    {
+      key: 'menu',
+      title: 'More',
+      icon: 'menu-outline',
+      activeIcon: 'menu',
+    },
+  ];
 
   const renderScene = BottomNavigation.SceneMap({
-    music: MusicRoute,
-    albums: AlbumsRoute,
-    recents: RecentsRoute,
-    notifications: NotificationsRoute,
+    home: Home,
+    chat: Chat,
+    documents: Home,
+    menu: Chat,
   });
 
   return (
@@ -37,8 +49,25 @@ const MainNavigation = () => {
         navigationState={{index, routes}}
         onIndexChange={setIndex}
         renderScene={renderScene}
+        renderIcon={({route, focused}) => (
+          <Ionicons
+            name={focused ? route.activeIcon : route.icon}
+            size={24}
+            color={focused ? colors.primary : 'gray'}
+          />
+        )}
+        renderLabel={({route, focused}) => (
+          <Text
+            style={[{color: focused ? colors.primary : 'gray'}]}
+            className=" text-center font-regular">
+            {focused ? route.title : ''}
+          </Text>
+        )}
+        barStyle={{backgroundColor: colors.surface}}
+        shifting={true} // Disables shifting to keep layout consistent
       />
     </SafeAreaProvider>
   );
 };
+
 export default MainNavigation;
