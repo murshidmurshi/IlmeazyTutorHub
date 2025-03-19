@@ -16,13 +16,17 @@ const InputField = ({
   righticon,
 }) => {
   let {colors} = useTheme();
-  
+
   return (
-    <View className="my-1.5">
+    <View className="my-1">
       <TextInput
         maxLength={limit}
         value={value}
-        label={<Text style={{ fontFamily: 'Poppins-Regular', fontSize: 14 }}>{label}</Text>} // ✅ Custom font applied
+        label={
+          <Text style={{fontFamily: 'Poppins-Regular', fontSize: 14}}>
+            {label}
+          </Text>
+        } // ✅ Custom font applied
         onChangeText={onChangeText}
         style={{
           backgroundColor: 'transparent',
@@ -36,7 +40,7 @@ const InputField = ({
         theme={{
           colors: {
             primary: colors.primary_main,
-            outline: hexToRgba(colors.outline, 0.1),
+            outline: hexToRgba(colors.text_disabled, 0.4),
             error: hexToRgba(colors.error_main, 0.3),
           },
         }}

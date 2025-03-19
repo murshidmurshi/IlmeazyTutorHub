@@ -1,7 +1,7 @@
 import {configureStore} from '@reduxjs/toolkit';
 import themeSlice from '../slices/themeSlice';
 import normalSlice from '../slices/normalSlice';
-import settingSlice from '../slices/settingSlice';
+import settingSlice, { loadLanguage } from '../slices/settingSlice';
 
 const store = configureStore({
   reducer: {
@@ -11,5 +11,8 @@ const store = configureStore({
     setting: settingSlice,
   },
 });
+
+// Load stored language when app starts
+loadLanguage(store.dispatch);
 
 export default store;

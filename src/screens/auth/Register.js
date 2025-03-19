@@ -17,26 +17,63 @@ import InputField from '../../components/Input/InputField';
 import Iconicon from 'react-native-vector-icons/Ionicons';
 import PrimaryButton from '../../components/button/PrimaryButton';
 import {isPlatformIOS} from '../../../utils/global';
+import {useTranslation} from 'react-i18next';
 
 export default function Register() {
   let {colors} = useTheme();
   let {lang, translations} = useSelector(state => state.setting);
-  const PageContent = translations?.Register?.[lang];
+  // const PageContent = translations?.Register?.[lang];
+  // const {
+  //   screenName,
+  //   header1,
+  //   nameinput,
+  //   emailinput,
+  //   contactinput,
+  //   whatsappinput,
+  //   first_checkbox,
+  //   dobinput,
+  //   header2,
+  //   passwordinput,
+  //   confirm_pass,
+  //   second_checkbox,
+  //   regBtn,
+  // } = PageContent;
+
+  const {t} = useTranslation();
+  // const PageContent = translations?.Login?.[lang];
+
+  // Extract Register translations
+  const RegisterContent = {
+    screenName: t('Register.screenName'),
+    header1: t('Register.header1'),
+    nameinput: t('Register.nameinput'),
+    emailinput: t('Register.emailinput'),
+    contactinput: t('Register.contactinput'),
+    whatsappinput: t('Register.whatsappinput'),
+    first_checkbox: t('Register.first_checkbox'),
+    dobinput: t('Register.dobinput'),
+    header2: t('Register.header2'),
+    passwordinput: t('Register.passwordinput'),
+    confirm_pass: t('Register.confirm_pass'),
+    second_checkbox: t('Register.second_checkbox'),
+    regBtn: t('Register.regBtn'),
+  };
+
   const {
     screenName,
     header1,
     nameinput,
     emailinput,
+    passwordinput,
     contactinput,
     whatsappinput,
     first_checkbox,
     dobinput,
     header2,
-    passwordinput,
     confirm_pass,
     second_checkbox,
     regBtn,
-  } = PageContent;
+  } = RegisterContent;
 
   const [checked, setChecked] = useState(false);
 
@@ -55,7 +92,7 @@ export default function Register() {
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
                 style={{backgroundColor: colors.background_default}}
-                className="flex-1 ">
+                className="flex-1 pb-4">
                 {/* header 1 */}
                 <InputHeader label={header1} />
 
@@ -166,10 +203,10 @@ export default function Register() {
                     </Text>
                   </View>
                 </View>
+                <View className="px-2">
+                  <PrimaryButton label={regBtn} />
+                </View>
               </ScrollView>
-              <View className="px-2">
-                <PrimaryButton label={regBtn} />
-              </View>
             </View>
           </TouchableWithoutFeedback>
         </SafeAreaView>

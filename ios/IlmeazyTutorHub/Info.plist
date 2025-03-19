@@ -45,8 +45,22 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<!-- <key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+
+<key>UISupportedInterfaceOrientations</key>
+<array>
+    <string>UIInterfaceOrientationPortrait</string>
+    <string>UIInterfaceOrientationPortraitUpsideDown</string>
+    <string>UIInterfaceOrientationLandscapeLeft</string>
+    <string>UIInterfaceOrientationLandscapeRight</string>
+</array>
+<key>UIViewUserInterfaceLayoutDirection</key>
+<string>UIUserInterfaceLayoutDirectionRightToLeft</string> -->
+
+
+
+
 	<key>UIAppFonts</key>
 	<array>
 		<string>Poppins-Black.ttf</string>

@@ -2,13 +2,85 @@
   "en": {
     "Login": {
       "greeting": "Welcome to ILMEAZY Tutor Hub",
-      "loginchild": "Enter your email and password to login"
+      "loginchild": "Enter your email and password to login",
+      "emailInput": "Email",
+      "passwordinput": "Password",
+      "loginBtn": "Login",
+      "forgot_pass": "Forgot Password?",
+      "regQuestion": "New to ILMEAZY?",
+      "regchild": "Sign up now and kickstart your tutor journey!",
+      "regBtn": "Register"
+    },
+    "Register": {
+      "screenName": "Register as a Tutor",
+      "header1": "Enter below details. All fields are required",
+      "nameinput": "Full Name",
+      "emailinput": "Email Address",
+      "contactinput": "Mobile Number",
+      "whatsappinput": "WhatsApp Number",
+      "first_checkbox": "Use this number for WhatsApp",
+      "dobinput": "Date of Birth",
+      "header2": "Set your Tutor account password",
+      "passwordinput": "Enter Password",
+      "confirm_pass": "Confirm Password",
+      "second_checkbox": "I agree to the Terms & Conditions",
+      "regBtn": "Register"
     }
   },
   "ar": {
     "Login": {
       "greeting": "مرحبًا بك في ILMEAZY Tutor Hub",
-      "loginchild": "أدخل بريدك الإلكتروني وكلمة المرور لتسجيل الدخول"
+      "loginchild": "أدخل بريدك الإلكتروني وكلمة المرور لتسجيل الدخول",
+      "emailInput": "البريد الإلكتروني",
+      "passwordinput": "كلمة المرور",
+      "loginBtn": "تسجيل الدخول",
+      "forgot_pass": "هل نسيت كلمة المرور؟",
+      "regQuestion": "جديد في ILMEAZY؟",
+      "regchild": "سجّل الآن وابدأ رحلتك كمدرس!",
+      "regBtn": "تسجيل"
+    },
+    "Register": {
+      "screenName": "سجل كمدرس",
+      "header1": "أدخل التفاصيل أدناه. جميع الحقول مطلوبة.",
+      "nameinput": "الاسم الكامل",
+      "emailinput": "عنوان البريد الإلكتروني",
+      "contactinput": "رقم الهاتف المحمول",
+      "whatsappinput": "رقم الواتساب",
+      "first_checkbox": "استخدم هذا الرقم للواتساب",
+      "dobinput": "تاريخ الميلاد",
+      "header2": "قم بتعيين كلمة مرور حساب المدرس",
+      "passwordinput": "أدخل كلمة المرور",
+      "confirm_pass": "تأكيد كلمة المرور",
+      "second_checkbox": "أوافق على الشروط والأحكام",
+      "regBtn": "تسجيل"
+    }
+  },
+  "id": {
+    "Login": {
+      "greeting": "Selamat datang di ILMEAZY Tutor Hub",
+      "loginchild": "Masukkan email dan kata sandi untuk masuk",
+      "emailInput": "Email",
+      "passwordinput": "Kata Sandi",
+      "loginBtn": "Masuk",
+      "forgot_pass": "Lupa Kata Sandi?",
+      "regQuestion": "Baru di ILMEAZY?",
+      "regchild": "Daftar sekarang dan mulai perjalanan tutor Anda!",
+      "regBtn": "Daftar"
+    },
+    "Register": {
+      "screenName": "Daftar sebagai Tutor",
+      "header1": "Masukkan detail di bawah ini. Semua kolom wajib diisi.",
+      "nameinput": "Nama Lengkap",
+      "emailinput": "Alamat Email",
+      "contactinput": "Nomor Handphone",
+      "whatsappinput": "Nomor WhatsApp",
+      "first_checkbox": "Gunakan nomor ini untuk WhatsApp",
+      "dobinput": "Tanggal Lahir",
+      "header2": "Atur kata sandi akun Tutor Anda",
+      "passwordinput": "Masukkan Kata Sandi",
+      "confirm_pass": "Konfirmasi Kata Sandi",
+      "second_checkbox": "Saya setuju dengan Syarat & Ketentuan",
+      "regBtn": "Daftar"
     }
   }
 }

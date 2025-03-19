@@ -6,10 +6,11 @@ import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import AppWithTheme from './src/main-navigator/AppwithTheme';
 import { I18nManager } from 'react-native';
 
-// Enable RTL support
-I18nManager.allowRTL(true);
-I18nManager.forceRTL(true);
-console.log('Is RTL:', I18nManager.isRTL); // Should print true if RTL is enabled
+// // Enable RTL support
+// I18nManager.allowRTL(false);
+// I18nManager.forceRTL(false);
+// console.log('Is RTL:', I18nManager.isRTL); // Should print true if RTL is enabled
+
 
 
 
