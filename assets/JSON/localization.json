@@ -2,18 +2,18 @@
   "en": {
     "Login": {
       "greeting": "Welcome to ILMEAZY Tutor Hub",
-      "loginchild": "Enter your email and password to login",
+      "loginchild": "Enter your email and password to log in",
       "emailInput": "Email",
       "passwordinput": "Password",
-      "loginBtn": "Login",
+      "loginBtn": "Log In",
       "forgot_pass": "Forgot Password?",
       "regQuestion": "New to ILMEAZY?",
-      "regchild": "Sign up now and kickstart your tutor journey!",
+      "regchild": "Sign up now and kick-start your tutor journey!",
       "regBtn": "Register"
     },
     "Register": {
       "screenName": "Register as a Tutor",
-      "header1": "Enter below details. All fields are required",
+      "header1": "Enter the details below. All fields are required.",
       "nameinput": "Full Name",
       "emailinput": "Email Address",
       "contactinput": "Mobile Number",
@@ -23,7 +23,8 @@
       "header2": "Set your Tutor account password",
       "passwordinput": "Enter Password",
       "confirm_pass": "Confirm Password",
-      "second_checkbox": "I agree to the Terms & Conditions",
+      "second_checkbox": "I agree to the ",
+      "second_checkbox_underline": "Terms & Conditions",
       "regBtn": "Register"
     }
   },
@@ -40,7 +41,7 @@
       "regBtn": "تسجيل"
     },
     "Register": {
-      "screenName": "سجل كمدرس",
+      "screenName": "سجّل كمدرس",
       "header1": "أدخل التفاصيل أدناه. جميع الحقول مطلوبة.",
       "nameinput": "الاسم الكامل",
       "emailinput": "عنوان البريد الإلكتروني",
@@ -51,7 +52,8 @@
       "header2": "قم بتعيين كلمة مرور حساب المدرس",
       "passwordinput": "أدخل كلمة المرور",
       "confirm_pass": "تأكيد كلمة المرور",
-      "second_checkbox": "أوافق على الشروط والأحكام",
+      "second_checkbox": "أوافق على ",
+      "second_checkbox_underline": "الشروط والأحكام",
       "regBtn": "تسجيل"
     }
   },
@@ -64,7 +66,7 @@
       "loginBtn": "Masuk",
       "forgot_pass": "Lupa Kata Sandi?",
       "regQuestion": "Baru di ILMEAZY?",
-      "regchild": "Daftar sekarang dan mulai perjalanan tutor Anda!",
+      "regchild": "Daftar sekarang dan mulai perjalanan Anda sebagai tutor!",
       "regBtn": "Daftar"
     },
     "Register": {
@@ -76,10 +78,11 @@
       "whatsappinput": "Nomor WhatsApp",
       "first_checkbox": "Gunakan nomor ini untuk WhatsApp",
       "dobinput": "Tanggal Lahir",
-      "header2": "Atur kata sandi akun Tutor Anda",
+      "header2": "Atur kata sandi akun tutor Anda",
       "passwordinput": "Masukkan Kata Sandi",
       "confirm_pass": "Konfirmasi Kata Sandi",
-      "second_checkbox": "Saya setuju dengan Syarat & Ketentuan",
+      "second_checkbox": "Saya setuju dengan ",
+      "second_checkbox_underline": "Syarat & Ketentuan",
       "regBtn": "Daftar"
     }
   }

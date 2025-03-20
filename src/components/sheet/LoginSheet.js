@@ -87,7 +87,7 @@ export default function Loginsheet({sheetRef}) {
           borderRadius: 25,
         }}>
         <BottomSheetScrollView>
-          <View>
+          {/* <View>
             <Text>Current Language: {language}</Text>
             <Button title="Switch to Arabic" onPress={() => SwitchLang('ar')} />
             <Button
@@ -98,7 +98,7 @@ export default function Loginsheet({sheetRef}) {
               title="Switch to Indonesian"
               onPress={() => SwitchLang('id')}
             />
-          </View>
+          </View> */}
 
           {/* headercontent */}
           <View className="flex-column my-2 space-y-1 my-4">

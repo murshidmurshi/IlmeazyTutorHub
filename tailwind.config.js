@@ -17,7 +17,7 @@ module.exports = {
         f_extrabold: ['Poppins-ExtraBold'],
         f_extralight: ['Poppins-ExtraLight'],
         semi: ['Poppins-SemiBold'],
-        medium: ['Poppins-Medium'],
+        p_medium: ['Poppins-Medium'],
         regular: ['Poppins-Regular'],
         f_light: ['Poppins-Light'],
         thin: ['Poppins-Thin'],

@@ -29,6 +29,7 @@ export const lightTheme = {
     text_secondary: '#181818',
     text_disabled: '#636364',
     divider: 'rgb(238, 238, 238)',
+    Base:'#F8F8F8'
   },
   roundness: 14,
 };
@@ -47,6 +48,8 @@ export const darkTheme = {
     text_secondary: '#E1E0DC',
     text_disabled: '#636364',
     divider: 'rgb(45, 45, 45)', //Deep Gray (Stronger separation)
+    Base:'#030303'
+
   },
   roundness: 14,
 };
