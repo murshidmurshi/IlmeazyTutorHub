@@ -1,16 +1,18 @@
 import * as React from 'react';
 import {Button, Text, useTheme} from 'react-native-paper';
+import {rippleColor} from '../../../utils/global';
 
 const PrimaryButton = ({label, bg, onPress}) => {
   let {colors} = useTheme();
   let BgStyle = {
-    backgroundColor: bg == false ? 'transparent' : colors.primaryBtn,
-    borderColor: bg == false ? colors.primaryBtn : 'transparent',
+    backgroundColor: bg == false ? 'transparent' : colors.green,
+    borderColor: bg == false ? colors.green : 'transparent',
     borderWidth: bg == false ? 1 : 0, // Ensure border is visible when bg is false
   };
   let textcolor = bg == false ? '' : 'text-white';
   return (
     <Button
+      rippleColor={rippleColor}
       mode="contained"
       onPress={onPress}
       className="p-0.5 rounded-xl"

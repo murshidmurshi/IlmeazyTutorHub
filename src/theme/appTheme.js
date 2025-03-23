@@ -9,11 +9,12 @@ const commonColors = {
   error_main: 'rgb(246, 69, 89)',
   iconColor: 'rgb(158, 162, 190)',
   iconColor2: 'rgb(184, 188, 189)',
+
   gray: 'rgb(99, 99, 100)',
   header: 'rgba(20, 26, 33, 0.08)', // #141a2114 converted to rgba
   outline: 'rgb(187, 185, 185)',
   warning: 'rgb(247, 199, 118)',
-  primaryBtn: 'rgb(10 179 169)',
+  green: 'rgb(10 179 169)',
 };
 
 export const lightTheme = {
@@ -29,7 +30,8 @@ export const lightTheme = {
     text_secondary: '#181818',
     text_disabled: '#636364',
     divider: 'rgb(238, 238, 238)',
-    Base:'#F8F8F8'
+    Base: '#F8F8F8',
+    Base2: 'rgb(238, 238, 238)',
   },
   roundness: 14,
 };
@@ -43,13 +45,12 @@ export const darkTheme = {
     background_paper: '#282c2f',
     background_default: '#000000',
     background_neutral: '#1A1A19',
-
     text_primary: '#F8F8F8',
     text_secondary: '#E1E0DC',
     text_disabled: '#636364',
     divider: 'rgb(45, 45, 45)', //Deep Gray (Stronger separation)
-    Base:'#030303'
-
+    Base: '#F8F8F8',
+    Base2: '#E1E0DC',
   },
   roundness: 14,
 };

@@ -14,33 +14,29 @@ import {useTranslation} from 'react-i18next';
 import {changeLanguage} from '../../redux/slices/settingSlice';
 
 export default function Loginsheet({sheetRef}) {
-  const {t} = useTranslation();
-
-  const {colors} = useTheme();
-
-  // Extract specific translations
-  const PageContent = {
-    greeting: t('Login.greeting'),
-    loginchild: t('Login.loginchild'),
-    emailInput: t('Login.emailInput'),
-    passwordinput: t('Login.passwordinput'),
-    loginBtn: t('Login.regBtn'),
-    forgot_pass: t('Login.forgot_pass'),
-    regQuestion: t('Login.regQuestion'),
-    regchild: t('Login.regchild'),
-    regBtn: t('Login.regBtn'),
-  };
-  const {
-    greeting,
-    loginchild,
-    emailInput,
-    passwordinput,
-    loginBtn,
-    forgot_pass,
-    regQuestion,
-    regchild,
-    regBtn,
-  } = PageContent;
+  const { t } = useTranslation();
+const { colors } = useTheme();
+const {
+  greeting,
+  loginchild,
+  emailInput,
+  passwordinput,
+  loginBtn,
+  forgot_pass,
+  regQuestion,
+  regchild,
+  regBtn,
+} = {
+  greeting: t('Login.greeting'),
+  loginchild: t('Login.loginchild'),
+  emailInput: t('Login.emailInput'),
+  passwordinput: t('Login.passwordinput'),
+  loginBtn: t('Login.loginBtn'),
+  forgot_pass: t('Login.forgot_pass'),
+  regQuestion: t('Login.regQuestion'),
+  regchild: t('Login.regchild'),
+  regBtn: t('Login.regBtn'),
+};
 
   const navigation = useNavigation();
   const snapPoints = ['75%'];
@@ -145,7 +141,7 @@ export default function Loginsheet({sheetRef}) {
 
             <Text
               className="font-regular text-center text-sm"
-              style={{color: colors.primaryBtn}}>
+              style={{color: colors.green}}>
               {forgot_pass}
             </Text>
 

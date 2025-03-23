@@ -7,6 +7,9 @@ import {ActivityIndicator, StatusBar, View} from 'react-native';
 import {useTheme} from 'react-native-paper';
 import Login from '../screens/auth/Login';
 import Register from '../screens/auth/Register';
+import Step2 from '../screens/CompleteProfile/Step2';
+import Step3 from '../screens/CompleteProfile/Step3';
+import Step4 from '../screens/CompleteProfile/Step4';
 
 const Stack = createNativeStackNavigator();
 export default function AppNavigator() {
@@ -68,13 +71,33 @@ export default function AppNavigator() {
             // options={{animation: 'ios_from_right'}}
             options={{animation: 'slide_from_bottom'}}
           />
-{/* 
+          {/* 
          <Stack.Screen
             name="Parent"
             component={Parent}
             options={{animation: 'fade_from_bottom'}}
           />
            */}
+
+          {/* Step2  */}
+          <Stack.Screen
+            name="Step2"
+            component={Step2}
+            options={{animation: 'ios_from_right'}}
+          />
+
+          {/* Step3  */}
+          <Stack.Screen
+            name="Step3"
+            component={Step3}
+            options={{animation: 'ios_from_right'}}
+          />
+          {/* Step4  */}
+          <Stack.Screen
+            name="Step4"
+            component={Step4}
+            options={{animation: 'ios_from_right'}}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </>

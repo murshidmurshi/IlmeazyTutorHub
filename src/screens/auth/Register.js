@@ -12,7 +12,6 @@ import React, {useState} from 'react';
 import AppHeader from '../../components/appHeader/AppHeader';
 import {Checkbox, TextInput, useTheme} from 'react-native-paper';
 import InputHeader from '../../components/Input/InputHeader';
-import {useSelector} from 'react-redux';
 import InputField from '../../components/Input/InputField';
 import Iconicon from 'react-native-vector-icons/Ionicons';
 import PrimaryButton from '../../components/button/PrimaryButton';
@@ -24,24 +23,7 @@ export default function Register() {
   let {colors} = useTheme();
   let navigation = useNavigation();
   const {t} = useTranslation();
-  // Extract Register translations
-  const RegisterContent = {
-    screenName: t('Register.screenName'),
-    header1: t('Register.header1'),
-    nameinput: t('Register.nameinput'),
-    emailinput: t('Register.emailinput'),
-    contactinput: t('Register.contactinput'),
-    whatsappinput: t('Register.whatsappinput'),
-    first_checkbox: t('Register.first_checkbox'),
-    dobinput: t('Register.dobinput'),
-    header2: t('Register.header2'),
-    passwordinput: t('Register.passwordinput'),
-    confirm_pass: t('Register.confirm_pass'),
-    second_checkbox: t('Register.second_checkbox'),
-    second_checkbox_underline: t('Register.second_checkbox_underline'),
-    regBtn: t('Register.regBtn'),
-  };
-
+  // Extract Register Content
   const {
     screenName,
     header1,
@@ -57,7 +39,22 @@ export default function Register() {
     second_checkbox,
     second_checkbox_underline,
     regBtn,
-  } = RegisterContent;
+  } = {
+    screenName: t('Register.screenName'),
+    header1: t('Register.header1'),
+    nameinput: t('Register.nameinput'),
+    emailinput: t('Register.emailinput'),
+    contactinput: t('Register.contactinput'),
+    whatsappinput: t('Register.whatsappinput'),
+    first_checkbox: t('Register.first_checkbox'),
+    dobinput: t('Register.dobinput'),
+    header2: t('Register.header2'),
+    passwordinput: t('Register.passwordinput'),
+    confirm_pass: t('Register.confirm_pass'),
+    second_checkbox: t('Register.second_checkbox'),
+    second_checkbox_underline: t('Register.second_checkbox_underline'),
+    regBtn: t('Register.regBtn'),
+  };
 
   const [checked, setChecked] = useState(false);
   const handleRegister = () => {
@@ -175,7 +172,7 @@ export default function Register() {
                 </View>
               </ScrollView>
               {/* Fixed Bottom Button */}
-              <View className="absolute bottom-2 left-0 right-0 p-4 bg-white shadow-xl">
+              <View className="absolute bottom-2 left-0 right-0 p-4 shadow-xl">
                 {/* Second checkbox */}
                 <View className="flex-row space-x-1 items-center mb-2">
                   <Checkbox.Android

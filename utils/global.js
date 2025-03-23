@@ -2,7 +2,7 @@ import {Dimensions as deviceDimension, Platform, Vibration} from 'react-native';
 const Wwidth = deviceDimension.get('window').width;
 const Wheight = deviceDimension.get('window').height;
 const Activity_Opacity = 0.9;
-const rippleColor = 'rgba(145 158 171 / 0.24)';
+const rippleColor = 'rgba(145 158 171 / 0.25)';
 const isPlatformIOS=Platform.OS=="ios";
 
 
