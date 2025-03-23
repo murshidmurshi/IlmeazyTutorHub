@@ -9,7 +9,7 @@ export default function InputHeader({label}) {
       <View
         className="p-2 px-3 bg-red-300"
         style={{backgroundColor: colors.divider}}>
-        <Text className="font-medium text-md  ">{label}</Text>
+        <Text className="font-p_medium text-md  ">{label}</Text>
       </View>
     </>
   );

@@ -13,7 +13,7 @@ module.exports = {
       fontSize: {
       },
       fontFamily: {
-        bold: ['Poppins-Bold'],
+        p_bold: ['Poppins-Bold'],
         f_extrabold: ['Poppins-ExtraBold'],
         f_extralight: ['Poppins-ExtraLight'],
         semi: ['Poppins-SemiBold'],

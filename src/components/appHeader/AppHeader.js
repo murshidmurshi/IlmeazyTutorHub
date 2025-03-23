@@ -1,5 +1,5 @@
 import React from 'react';
-import {Appbar, useTheme} from 'react-native-paper';
+import {Appbar, Text, useTheme} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
@@ -10,6 +10,7 @@ export default function AppHeader({
   RenderIcon,
   absolute,
   RenderMenu,
+  secondTitle,
 }) {
   const {colors} = useTheme();
   const navigation = useNavigation();
@@ -51,7 +52,7 @@ export default function AppHeader({
           onPress={handleBackPress}
         />
       )}
-      <Appbar.Content
+      {/* <Appbar.Content
         title={screenName}
         titleStyle={{
           fontSize: 17,
@@ -59,7 +60,32 @@ export default function AppHeader({
           color: 'white',
           left: !backIcon ? 0 : 0,
         }}
+      /> */}
+
+      <Appbar.Content
+        title={
+          <>
+            <Text
+              className="font-p_medium text-[16px] "
+              style={{
+                color: colors.Base,
+              }}>
+              {screenName}
+            </Text>
+
+            {secondTitle && (
+              <Text
+                className="font-regular text-xs mt-[-3px] "
+                style={{
+                  color: colors.Base2,
+                }}>
+                {secondTitle}
+              </Text>
+            )}
+          </>
+        }
       />
+
       {RenderIcon && <RenderIcon />}
       {RenderMenu && <RenderMenu />}
     </Appbar.Header>
