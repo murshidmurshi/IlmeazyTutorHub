@@ -8,7 +8,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import {isPlatformIOS} from '../../../utils/global';
 import {useTheme} from 'react-native-paper';
 import InputHeader from '../../components/Input/InputHeader';
@@ -18,11 +18,13 @@ import TouchableInput from '../../components/Input/TouchableInput';
 import InputField from '../../components/Input/InputField';
 import PrimaryButton from '../../components/button/PrimaryButton';
 import TimeSlots from '../../components/Input/TimeSlots';
+import OptionSheet from '../../components/sheet/OptionSheet';
 
 export default function Step4() {
   let {colors} = useTheme();
   let {t} = useTranslation();
   // Extract Step3 translations
+
   const [
     screenName,
     subtitle,
@@ -32,17 +34,8 @@ export default function Step4() {
     coursePlaceholder,
     header2,
     sessionTitle,
-    sessionMorning,
-    sessionAfternoon,
-    sessionEvening,
     durationTitle,
-    duration30Min,
-    duration1Hour,
     timeslotTitle,
-    timeslot1,
-    timeslot2,
-    timeslot3,
-    timeslot4,
     stepBtn,
   ] = [
     t('Steps.screenName'),
@@ -53,19 +46,106 @@ export default function Step4() {
     t('Steps.Step4.courseDropdown.placeholder'),
     t('Steps.Step4.header2'),
     t('Steps.Step4.slotCategory.sesson.title'),
-    t('Steps.Step4.slotCategory.sesson.category1'),
-    t('Steps.Step4.slotCategory.sesson.category2'),
-    t('Steps.Step4.slotCategory.sesson.category3'),
     t('Steps.Step4.slotCategory.duration.title'),
-    t('Steps.Step4.slotCategory.duration.category1'),
-    t('Steps.Step4.slotCategory.duration.category2'),
     t('Steps.Step4.slotCategory.timeslot.title'),
-    t('Steps.Step4.slotCategory.timeslot.category1'),
-    t('Steps.Step4.slotCategory.timeslot.category2'),
-    t('Steps.Step4.slotCategory.timeslot.category3'),
-    t('Steps.Step4.slotCategory.timeslot.category4'),
     t('Steps.stepBtn'),
   ];
+
+  const extractCategories = path => {
+    const data = t(path, {returnObjects: true}); // Ensure we get the full object
+    if (!data || typeof data !== 'object') return []; // Handle cases where data is missing
+    return Object.keys(data)
+      .filter(key => key.startsWith('category')) // Filter category keys
+      .map(key => data[key]); // Extract values
+  };
+
+  // Fetch categories dynamically
+  const sessionCategories = extractCategories(
+    'Steps.Step4.slotCategory.sesson',
+  );
+  const durationCategories = extractCategories(
+    'Steps.Step4.slotCategory.duration',
+  );
+  const timeslotCategories = extractCategories(
+    'Steps.Step4.slotCategory.timeslot',
+  );
+
+  const sessiondata = {
+    title: t('Steps.Step4.slotCategory.sesson.title'),
+    categories: sessionCategories,
+  };
+  const durationdata = {
+    title: t('Steps.Step4.slotCategory.duration.title'),
+    categories: durationCategories,
+  };
+
+  const timeslotdata = {
+    title: t('Steps.Step4.slotCategory.timeslot.title'),
+    categories: timeslotCategories,
+  };
+  const [selected, setSelected] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const sheetRef = useRef(null);
+
+  const tutorType_option = {
+    title: 'Select Tutor Type',
+    data: [
+      {label: 'School Teacher', value: 'school_teacher'},
+      {label: 'Madrasa Teacher', value: 'madrasa_teacher'},
+      {label: 'University Professor', value: 'university_professor'},
+      {label: 'Private Tutor', value: 'private_tutor'},
+      {label: 'Hafiz (Quran Teacher)', value: 'hafiz'},
+      {label: 'Islamic Scholar', value: 'islamic_scholar'},
+      {label: 'Online Tutor', value: 'online_tutor'},
+      {label: 'Part-Time Tutor', value: 'part_time_tutor'},
+      {label: 'Full-Time Tutor', value: 'full_time_tutor'},
+    ],
+  };
+
+  const teachingLang_option = {
+    title: 'Select Teaching Language',
+    data: [
+      {label: 'Arabic', value: 'arabic'},
+      {label: 'Urdu', value: 'urdu'},
+      {label: 'English', value: 'english'},
+      {label: 'Hindi', value: 'hindi'},
+      {label: 'Bengali', value: 'bengali'},
+      {label: 'Turkish', value: 'turkish'},
+      {label: 'Persian', value: 'persian'},
+      {label: 'French', value: 'french'},
+      {label: 'Malayalam', value: 'malayalam'},
+      {label: 'Tamil', value: 'tamil'},
+    ],
+  };
+
+  const course_option = {
+    title: 'Select Course',
+    data: [
+      {label: 'Tajweed & Quran Recitation', value: 'tajweed_quran'},
+      {label: 'Hifz (Quran Memorization)', value: 'hifz'},
+      {label: 'Islamic Studies', value: 'islamic_studies'},
+      {label: 'Hadith Studies', value: 'hadith_studies'},
+      {label: 'Fiqh (Islamic Jurisprudence)', value: 'fiqh'},
+      {label: 'Aqidah (Islamic Theology)', value: 'aqidah'},
+      {label: 'Seerah (Prophet’s Biography)', value: 'seerah'},
+      {label: 'Arabic Grammar & Language', value: 'arabic_grammar'},
+      {label: 'Islamic History', value: 'islamic_history'},
+      {label: 'Modern Islamic Research', value: 'modern_islamic_research'},
+    ],
+  };
+
+  const handleInputPress = type => {
+    // Set the selected option dynamically
+    if (type === 'tutorType') {
+      setSelectedOption(tutorType_option);
+    } else if (type === 'teachingLang') {
+      setSelectedOption(teachingLang_option);
+    } else if (type === 'course') {
+      setSelectedOption(course_option);
+    }
+    // Open the bottom sheet
+    sheetRef.current?.expand();
+  };
 
   return (
     <>
@@ -88,16 +168,38 @@ export default function Step4() {
                 <InputHeader label={header1} />
                 <View className="p-3 py-2 pb-4  flex-column ">
                   {/* input for dropDown1 for selecting Type of Tutor  */}
-                  <TouchableInput label={tutorTypePlaceholder} />
+                  <TouchableInput
+                    label={tutorTypePlaceholder}
+                    onPress={() => handleInputPress('tutorType')}
+                  />
                   {/* input for dropDown2 for selecting tutur teaching lang */}
-                  <TouchableInput label={teachingLanguagePlaceholder} />
+                  <TouchableInput
+                    label={teachingLanguagePlaceholder}
+                    onPress={() => handleInputPress('teachingLang')}
+                  />
                   {/* input for dropDown3 for selecting course */}
-                  <TouchableInput label={coursePlaceholder} />
+                  <TouchableInput
+                    label={coursePlaceholder}
+                    onPress={() => handleInputPress('course')}
+                  />
                 </View>
 
                 <InputHeader label={header2} />
-
-                <TimeSlots />
+                <TimeSlots
+                  data={sessiondata}
+                  selected={selected}
+                  setSelected={setSelected}
+                />
+                <TimeSlots
+                  data={durationdata}
+                  selected={selected}
+                  setSelected={setSelected}
+                />
+                <TimeSlots
+                  data={timeslotdata}
+                  selected={selected}
+                  setSelected={setSelected}
+                />
               </ScrollView>
               <View className="absolute bottom-2 left-0 right-0 p-4  shadow-xl">
                 <PrimaryButton label={stepBtn} />
@@ -106,6 +208,8 @@ export default function Step4() {
           </TouchableWithoutFeedback>
         </SafeAreaView>
       </KeyboardAvoidingView>
+
+      <OptionSheet sheetRef={sheetRef} data={selectedOption} />
     </>
   );
 }

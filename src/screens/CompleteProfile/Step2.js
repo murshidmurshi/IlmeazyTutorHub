@@ -8,7 +8,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import {isPlatformIOS} from '../../../utils/global';
 import {TextInput, useTheme} from 'react-native-paper';
 import InputHeader from '../../components/Input/InputHeader';
@@ -18,6 +18,8 @@ import TouchableInput from '../../components/Input/TouchableInput';
 import InputField from '../../components/Input/InputField';
 import PrimaryButton from '../../components/button/PrimaryButton';
 import {useNavigation} from '@react-navigation/native';
+import OptionSheet from '../../components/sheet/OptionSheet';
+import CountryPicker from 'react-native-country-picker-modal';
 
 export default function Step2() {
   let {colors} = useTheme();
@@ -55,6 +57,73 @@ export default function Step2() {
     t('Steps.stepBtn'),
   ];
 
+  const [selectedOption, setSelectedOption] = useState(null);
+  const sheetRef = useRef(null);
+
+  const [country, setCountry] = useState(null);
+  const [visible, setVisible] = useState(false);
+  const onSelect = selectedCountry => {
+    setCountry(selectedCountry);
+
+    setVisible(false);
+  };
+  const mazhabOptions = {
+    title: 'Select Mazhab',
+    data: [
+      {label: 'Shafi', value: 'shafi'},
+      {label: 'Hanafi', value: 'hanafi'},
+      {label: 'Hanbali', value: 'hanbali'},
+      {label: 'Maliki', value: 'maliki'},
+    ],
+  };
+
+  const genderOptions = {
+    title: 'Select Gender',
+    data: [
+      {label: 'Male', value: 'male'},
+      {label: 'Female', value: 'female'},
+    ],
+  };
+
+  const stateOptions = {
+    title: 'Select State',
+    data: [
+      {label: 'Karnataka', value: 'karnataka'},
+      {label: 'Maharashtra', value: 'maharashtra'},
+      {label: 'Uttar Pradesh', value: 'uttar_pradesh'},
+      {label: 'Tamil Nadu', value: 'tamil_nadu'},
+      {label: 'West Bengal', value: 'west_bengal'},
+    ],
+  };
+
+  const cityOptions = {
+    title: 'Select City',
+    data: [
+      {label: 'Bangalore', value: 'bangalore'},
+      {label: 'Mumbai', value: 'mumbai'},
+      {label: 'Chennai', value: 'chennai'},
+      {label: 'Delhi', value: 'delhi'},
+      {label: 'Kolkata', value: 'kolkata'},
+    ],
+  };
+
+  const handleInputPress = type => {
+    // Set the selected option dynamically
+    if (type === 'mazhab') {
+      setSelectedOption(mazhabOptions);
+    } else if (type === 'gender') {
+      setSelectedOption(genderOptions);
+    } else if (type === 'state') {
+      setSelectedOption(stateOptions);
+    } else if (type === 'city') {
+      setSelectedOption(cityOptions);
+    } else if (type === 'country') {
+      setVisible(true);
+      return;
+    }
+    // Open the bottom sheet
+    sheetRef.current?.expand();
+  };
   const handleNavigate = async () => {
     navigation.navigate('Step3');
   };
@@ -83,12 +152,14 @@ export default function Step2() {
                   {/* input for dropDown1 for selecting Mazhab  */}
                   <TouchableInput
                     label={mazhabPlaceholder}
+                    onPress={() => handleInputPress('mazhab')}
                     // value={mazhabCategory1}
                   />
 
                   {/* input for dropDown1 for selecting Gender  */}
                   <TouchableInput
                     label={genderPlaceholder}
+                    onPress={() => handleInputPress('gender')}
                     // value={mazhabCategory1}
                   />
                 </View>
@@ -98,17 +169,22 @@ export default function Step2() {
                   {/* input for dropDown1 for selecting country  */}
                   <TouchableInput
                     label={countryPlaceholder}
+                    onPress={() => handleInputPress('country')}
                     // value={mazhabCategory1}
                   />
 
                   {/* input for dropDown1 for selecting state  */}
                   <TouchableInput
                     label={statePlaceholder}
+                    onPress={() => handleInputPress('state')}
+
                     // value={mazhabCategory1}
                   />
                   {/* input for dropDown1 for selecting city  */}
                   <TouchableInput
                     label={cityPlaceholder}
+                    onPress={() => handleInputPress('city')}
+
                     // value={mazhabCategory1}
                   />
                   <InputField label={placePlaceholder} />
@@ -119,7 +195,6 @@ export default function Step2() {
                   <InputField label={bioPlaceholder} />
                 </View>
               </ScrollView>
-
               <View className="absolute bottom-2 left-0 right-0 p-4  shadow-xl">
                 <PrimaryButton label={stepBtn} onPress={handleNavigate} />
               </View>
@@ -127,6 +202,30 @@ export default function Step2() {
           </TouchableWithoutFeedback>
         </SafeAreaView>
       </KeyboardAvoidingView>
+
+      <OptionSheet sheetRef={sheetRef} data={selectedOption} />
+      {visible && (
+        <CountryPicker
+          containerButtonStyle={{backgroundColor: 'black'}}
+          withCountryNameButton={false} // ✅ Boolean should not be a string
+          withFlag={true}
+          withEmoji={true}
+          withFilter={true}
+          withAlphaFilter={true}
+          withCallingCode={true}
+          visible={visible}
+          translation="common"
+          withModal={true}
+          theme={{
+            fontFamily: 'Poppins-Regular', // ✅ Custom font applied inside modal
+            backgroundColor: colors?.background_neutral,
+            filterPlaceholderTextColor: colors.text_secondary,
+            onBackgroundTextColor: colors.text_secondary,
+          }}
+          onSelect={onSelect} // ✅ Ensure this function exists to handle country selection
+          onClose={() => setVisible(false)} // Close when clicking outside
+        />
+      )}
     </>
   );
 }
