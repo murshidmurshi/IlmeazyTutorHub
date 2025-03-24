@@ -15,10 +15,10 @@ const PrimaryButton = ({label, bg, onPress}) => {
       rippleColor={rippleColor}
       mode="contained"
       onPress={onPress}
-      className="p-0.5 rounded-xl"
+      className="p-1 rounded-xl"
       style={BgStyle} // ✅ Corrected style
     >
-      <Text className={`font-semi text-center text-lg ${textcolor} `}>
+      <Text className={`font-semi text-center text-[17px] ${textcolor} `}>
         {label}
       </Text>
     </Button>

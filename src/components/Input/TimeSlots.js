@@ -1,49 +1,49 @@
-import { StyleSheet, View, FlatList } from 'react-native'
-import React from 'react'
-import { Text } from 'react-native-paper'
+import {View, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
+import {Text, useTheme} from 'react-native-paper';
 
-const session = {
-  title: "Session",
-  categories: ["Morning", "Afternoon", "Evening"]
-}
+export default function TimeSlots({data, selected, setSelected}) {
+  let {colors} = useTheme();
 
-export default function TimeSlots() {
+  const handleSelect = item => {
+    setSelected(prev => ({
+      ...prev,
+      [data?.title]: prev&&prev[data?.title] === item ? null : item, // Toggle selection
+    }));
+  };
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{session.title}</Text>
-      <FlatList
-        data={session.categories}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.categoryContainer}>
-            <Text style={styles.category}>{item}</Text>
-          </View>
-        )}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-      />
+    <View className="p-3">
+      <Text
+        className="text-[15px] font-p_medium mb-3"
+        style={{
+          color: colors.text_secondary,
+        }}>
+        {data?.title}
+      </Text>
+      <View className="flex flex-wrap flex-row gap-2">
+        {data?.categories?.map((item, index) => {
+          const isSelected = selected&&selected[data?.title] === item;
+          return (
+            <TouchableOpacity
+              key={index}
+              className="rounded-md px-4 py-1"
+              onPress={() => handleSelect(item)}
+              style={{
+                backgroundColor: isSelected
+                  ? colors.primary_main
+                  : colors.surface,
+              }}>
+              <Text
+                className="font-regular text-md"
+                style={{
+                  color: isSelected ? 'white' : colors.text_primary,
+                }}>
+                {item}
+              </Text>
+            </TouchableOpacity>
+          );
+        })}
+      </View>
     </View>
-  )
+  );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-    backgroundColor: '#fff',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  categoryContainer: {
-    marginRight: 10,
-  },
-  category: {
-    fontSize: 16,
-    padding: 10,
-    backgroundColor: '#e0e0e0',
-    borderRadius: 5,
-  },
-})
-

@@ -1,5 +1,5 @@
-import React, {useCallback, useEffect, useRef} from 'react';
-import {StyleSheet, View, Button, I18nManager} from 'react-native';
+import React, {useCallback} from 'react';
+import {StyleSheet, View} from 'react-native';
 import {Divider, Portal, Text, TextInput, useTheme} from 'react-native-paper';
 import BottomSheet, {
   BottomSheetBackdrop,
@@ -8,35 +8,34 @@ import BottomSheet, {
 import InputField from '../Input/InputField';
 import PrimaryButton from '../button/PrimaryButton';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import {useDispatch, useSelector} from 'react-redux';
 import Iconicon from 'react-native-vector-icons/Ionicons';
 import {useTranslation} from 'react-i18next';
-import {changeLanguage} from '../../redux/slices/settingSlice';
+import ChangeLanguage from '../ChangeLanguage';
 
 export default function Loginsheet({sheetRef}) {
-  const { t } = useTranslation();
-const { colors } = useTheme();
-const {
-  greeting,
-  loginchild,
-  emailInput,
-  passwordinput,
-  loginBtn,
-  forgot_pass,
-  regQuestion,
-  regchild,
-  regBtn,
-} = {
-  greeting: t('Login.greeting'),
-  loginchild: t('Login.loginchild'),
-  emailInput: t('Login.emailInput'),
-  passwordinput: t('Login.passwordinput'),
-  loginBtn: t('Login.loginBtn'),
-  forgot_pass: t('Login.forgot_pass'),
-  regQuestion: t('Login.regQuestion'),
-  regchild: t('Login.regchild'),
-  regBtn: t('Login.regBtn'),
-};
+  const {t} = useTranslation();
+  const {colors} = useTheme();
+  const {
+    greeting,
+    loginchild,
+    emailInput,
+    passwordinput,
+    loginBtn,
+    forgot_pass,
+    regQuestion,
+    regchild,
+    regBtn,
+  } = {
+    greeting: t('Login.greeting'),
+    loginchild: t('Login.loginchild'),
+    emailInput: t('Login.emailInput'),
+    passwordinput: t('Login.passwordinput'),
+    loginBtn: t('Login.loginBtn'),
+    forgot_pass: t('Login.forgot_pass'),
+    regQuestion: t('Login.regQuestion'),
+    regchild: t('Login.regchild'),
+    regBtn: t('Login.regBtn'),
+  };
 
   const navigation = useNavigation();
   const snapPoints = ['75%'];
@@ -63,11 +62,6 @@ const {
     await sheetRef.current?.close(); // Ensure ref is set before calling expand
     navigation.navigate('Register');
   };
-  const dispatch = useDispatch();
-  const {language} = useSelector(state => state.setting);
-  const SwitchLang = lang => {
-    changeLanguage(dispatch, lang);
-  };
 
   return (
     <Portal>
@@ -83,19 +77,6 @@ const {
           borderRadius: 25,
         }}>
         <BottomSheetScrollView>
-          {/* <View>
-            <Text>Current Language: {language}</Text>
-            <Button title="Switch to Arabic" onPress={() => SwitchLang('ar')} />
-            <Button
-              title="Switch to English"
-              onPress={() => SwitchLang('en')}
-            />
-            <Button
-              title="Switch to Indonesian"
-              onPress={() => SwitchLang('id')}
-            />
-          </View> */}
-
           {/* headercontent */}
           <View className="flex-column my-2 space-y-1 my-4">
             {/* greeting */}
@@ -107,6 +88,7 @@ const {
               {loginchild}
             </Text>
           </View>
+          <ChangeLanguage />
           {/* Main container */}
           <View className="mx-3 flex-column  space-y-3.5">
             {/* inputs */}

@@ -48,7 +48,7 @@ export const darkTheme = {
     text_primary: '#F8F8F8',
     text_secondary: '#E1E0DC',
     text_disabled: '#636364',
-    divider: 'rgb(45, 45, 45)', //Deep Gray (Stronger separation)
+    divider: 'rgb(29, 27, 30)', //Deep Gray (Stronger separation)
     Base: '#F8F8F8',
     Base2: '#E1E0DC',
   },

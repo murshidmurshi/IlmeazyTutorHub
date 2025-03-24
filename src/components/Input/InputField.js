@@ -39,7 +39,7 @@ const InputField = ({
         error={error}
         theme={{
           colors: {
-            primary: colors.primary_main,
+            primary: colors.primary,
             outline: hexToRgba(colors.text_disabled, 0.4),
             error: hexToRgba(colors.error_main, 0.3),
           },

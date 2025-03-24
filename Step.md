@@ -388,3 +388,6 @@ sharedI18nUtilInstance.allowRTL(applicationContext, true)
 
 also don’t forget to import this line in MainApplication.java
 # import com.facebook.react.modules.i18nmanager.I18nUtil
+
+for Country Picker
+# npm i react-native-country-picker-modal --force

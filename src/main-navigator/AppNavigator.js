@@ -52,11 +52,11 @@ export default function AppNavigator() {
             // If token is valid, navigate to Parent screen
             <></>
           )}
-          <Stack.Screen
+          {/* <Stack.Screen
             name="Parent"
             component={Parent}
             options={{animation: 'fade_from_bottom'}}
-          />
+          /> */}
           <Stack.Screen
             name="Login"
             component={Login}
@@ -71,13 +71,12 @@ export default function AppNavigator() {
             // options={{animation: 'ios_from_right'}}
             options={{animation: 'slide_from_bottom'}}
           />
-          {/* 
-         <Stack.Screen
+
+          <Stack.Screen
             name="Parent"
             component={Parent}
             options={{animation: 'fade_from_bottom'}}
           />
-           */}
 
           {/* Step2  */}
           <Stack.Screen
