@@ -88,7 +88,7 @@ export default function Loginsheet({sheetRef}) {
               {loginchild}
             </Text>
           </View>
-          <ChangeLanguage />
+          {/* <ChangeLanguage /> */}
           {/* Main container */}
           <View className="mx-3 flex-column  space-y-3.5">
             {/* inputs */}

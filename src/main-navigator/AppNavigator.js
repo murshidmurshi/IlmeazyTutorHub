@@ -10,6 +10,7 @@ import Register from '../screens/auth/Register';
 import Step2 from '../screens/CompleteProfile/Step2';
 import Step3 from '../screens/CompleteProfile/Step3';
 import Step4 from '../screens/CompleteProfile/Step4';
+import Step5 from '../screens/CompleteProfile/Step5';
 
 const Stack = createNativeStackNavigator();
 export default function AppNavigator() {
@@ -95,6 +96,12 @@ export default function AppNavigator() {
           <Stack.Screen
             name="Step4"
             component={Step4}
+            options={{animation: 'ios_from_right'}}
+          />
+             {/* Step5  */}
+             <Stack.Screen
+            name="Step5"
+            component={Step5}
             options={{animation: 'ios_from_right'}}
           />
         </Stack.Navigator>
