@@ -120,7 +120,14 @@
           }
         }
       },
-      "stepBtn": "Save & Continue"
+      "Step5": {
+        "subtitle": "Step 5 of 5",
+        "header1": "Upload Document",
+        "child1": "Follow the instructions you have received in the email and upload it securely from here.",
+        "uploadHeader": "File uploaded"
+      },
+      "stepBtn": "Save and Continue",
+      "submitBtn":"Submit"
     }
   },
   "ar": {
@@ -244,7 +251,11 @@
           }
         }
       },
-
+      "Step5": {
+        "subtitle": "الخطوة 5 من 5",
+        "header1": "تحميل المستند",
+        "child1": "اتبع التعليمات التي تلقيتها في البريد الإلكتروني وقم بتحميله بأمان من هنا."
+      },
       "stepBtn": "حفظ ومتابعة"
     }
   },
@@ -368,6 +379,11 @@
             "category4": "07:30-08:30 Pagi"
           }
         }
+      },
+      "Step5": {
+        "subtitle": "Langkah 5 dari 5",
+        "header1": "Unggah Dokumen",
+        "child1": "Ikuti instruksi yang Anda terima dalam email dan unggah dengan aman dari sini."
       },
       "stepBtn": "Simpan & Lanjutkan"
     }

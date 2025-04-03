@@ -6,16 +6,19 @@ const rippleColor = 'rgba(145 158 171 / 0.25)';
 const isPlatformIOS=Platform.OS=="ios";
 
 
-const hexToRgba = (hex, alpha = 1) => {
-  if (hex.startsWith("rgb")) return hex; // If already in rgb() format, return as is
-  hex = hex.replace("#", "");
-  // If shorthand (3 characters), expand it (e.g., #abc → #aabbcc)
-  if (hex.length === 3) {
-    hex = hex.split("").map((char) => char + char).join("");
+
+const hexToRgba = (color, alpha = 1) => {
+  if (color.startsWith("rgb")) {
+    // Convert "rgb(220, 184, 255)" to "rgba(220, 184, 255, alpha)"
+    return color.replace("rgb", "rgba").replace(")", `, ${alpha})`);
   }
-  let r = parseInt(hex.substring(0, 2), 16);
-  let g = parseInt(hex.substring(2, 4), 16);
-  let b = parseInt(hex.substring(4, 6), 16);
+  color = color.replace("#", "");
+  if (color.length === 3) {
+    color = color.split("").map((char) => char + char).join("");
+  }
+  let r = parseInt(color.substring(0, 2), 16);
+  let g = parseInt(color.substring(2, 4), 16);
+  let b = parseInt(color.substring(4, 6), 16);
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 };
 

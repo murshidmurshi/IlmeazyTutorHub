@@ -15,13 +15,14 @@ import InputHeader from '../../components/Input/InputHeader';
 import AppHeader from '../../components/appHeader/AppHeader';
 import {useTranslation} from 'react-i18next';
 import TouchableInput from '../../components/Input/TouchableInput';
-import InputField from '../../components/Input/InputField';
 import PrimaryButton from '../../components/button/PrimaryButton';
 import TimeSlots from '../../components/Input/TimeSlots';
 import OptionSheet from '../../components/sheet/OptionSheet';
+import {useNavigation} from '@react-navigation/native';
 
 export default function Step4() {
   let {colors} = useTheme();
+  let navigation = useNavigation();
   let {t} = useTranslation();
   // Extract Step3 translations
 
@@ -33,9 +34,6 @@ export default function Step4() {
     teachingLanguagePlaceholder,
     coursePlaceholder,
     header2,
-    sessionTitle,
-    durationTitle,
-    timeslotTitle,
     stepBtn,
   ] = [
     t('Steps.screenName'),
@@ -45,9 +43,6 @@ export default function Step4() {
     t('Steps.Step4.teaching_lan_Dropdown.placeholder'),
     t('Steps.Step4.courseDropdown.placeholder'),
     t('Steps.Step4.header2'),
-    t('Steps.Step4.slotCategory.sesson.title'),
-    t('Steps.Step4.slotCategory.duration.title'),
-    t('Steps.Step4.slotCategory.timeslot.title'),
     t('Steps.stepBtn'),
   ];
 
@@ -147,6 +142,10 @@ export default function Step4() {
     sheetRef.current?.expand();
   };
 
+  const handleNavigate = async () => {
+    navigation.navigate('Step5');
+  };
+
   return (
     <>
       <AppHeader screenName={screenName} secondTitle={subtitle} />
@@ -202,7 +201,7 @@ export default function Step4() {
                 />
               </ScrollView>
               <View className="absolute bottom-2 left-0 right-0 p-4  shadow-xl">
-                <PrimaryButton label={stepBtn} />
+                <PrimaryButton label={stepBtn} onPress={handleNavigate} />
               </View>
             </View>
           </TouchableWithoutFeedback>

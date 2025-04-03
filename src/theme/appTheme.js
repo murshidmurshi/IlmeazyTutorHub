@@ -15,6 +15,8 @@ const commonColors = {
   outline: 'rgb(187, 185, 185)',
   warning: 'rgb(247, 199, 118)',
   green: 'rgb(10 179 169)',
+  transparentBtn:"rgb(220, 184, 255)"
+
 };
 
 export const lightTheme = {
