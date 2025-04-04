@@ -19,7 +19,7 @@ import InputField from '../../components/Input/InputField';
 import PrimaryButton from '../../components/button/PrimaryButton';
 import {useNavigation} from '@react-navigation/native';
 import OptionSheet from '../../components/sheet/OptionSheet';
-import CountryPicker from 'react-native-country-picker-modal';
+import CountryPickerModal from '../../components/modal/CountryPickerModal';
 
 export default function Step2() {
   let {colors} = useTheme();
@@ -64,9 +64,9 @@ export default function Step2() {
   const [visible, setVisible] = useState(false);
   const onSelect = selectedCountry => {
     setCountry(selectedCountry);
-
     setVisible(false);
   };
+
   const mazhabOptions = {
     title: 'Select Mazhab',
     data: [
@@ -205,25 +205,10 @@ export default function Step2() {
 
       <OptionSheet sheetRef={sheetRef} data={selectedOption} />
       {visible && (
-        <CountryPicker
-          containerButtonStyle={{backgroundColor: 'black'}}
-          withCountryNameButton={false} // ✅ Boolean should not be a string
-          withFlag={true}
-          withEmoji={true}
-          withFilter={true}
-          withAlphaFilter={true}
-          withCallingCode={true}
+        <CountryPickerModal
           visible={visible}
-          translation="common"
-          withModal={true}
-          theme={{
-            fontFamily: 'Poppins-Regular', // ✅ Custom font applied inside modal
-            backgroundColor: colors?.background_neutral,
-            filterPlaceholderTextColor: colors.text_secondary,
-            onBackgroundTextColor: colors.text_secondary,
-          }}
-          onSelect={onSelect} // ✅ Ensure this function exists to handle country selection
-          onClose={() => setVisible(false)} // Close when clicking outside
+          setVisible={setVisible}
+          onSelect={onSelect}
         />
       )}
     </>
