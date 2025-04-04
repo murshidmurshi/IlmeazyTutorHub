@@ -8,7 +8,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import AppHeader from '../../components/appHeader/AppHeader';
 import {Checkbox, TextInput, useTheme} from 'react-native-paper';
 import InputHeader from '../../components/Input/InputHeader';
@@ -18,8 +18,14 @@ import PrimaryButton from '../../components/button/PrimaryButton';
 import {isPlatformIOS} from '../../../utils/global';
 import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
+import {Formik} from 'formik';
+import * as Yup from 'yup';
+import CountryPickerModal from '../../components/modal/CountryPickerModal';
+import DatePickerComponent from '../../components/modal/DatePickerModal';
+import moment from 'moment';
 
 export default function Register() {
+  const formikRef = useRef(null); // Create a ref for Formik instance
   let {colors} = useTheme();
   let navigation = useNavigation();
   const {t} = useTranslation();
@@ -56,149 +62,340 @@ export default function Register() {
     regBtn: t('Register.regBtn'),
   };
 
-  const [checked, setChecked] = useState(false);
-  const handleRegister = () => {
+  const [countryContact, setCountryContact] = useState('91');
+  const [countryWhatsapp, setCountryWhatsapp] = useState('91');
+
+  console.log(countryContact, 'countryContact');
+  console.log(countryWhatsapp, 'countryWhatsapp');
+
+  const [currentField, setCurrentField] = useState(null); // <- NEW
+  const [visible, setVisible] = useState(false);
+
+  const onSelect = selectedCountry => {
+    console.log(selectedCountry, 'selectedCountry');
+
+    let countryCode = selectedCountry?.callingCode[0];
+    if (currentField === 'contact') {
+      setCountryContact(countryCode);
+    } else if (currentField === 'whatsapp_number') {
+      setCountryWhatsapp(countryCode);
+    }
+
+    setVisible(false);
+    setCurrentField(null); // reset
+  };
+
+  const handleCountryPicker = field => {
+    setCurrentField(field); // 'contact' or 'whatsapp'
+    setVisible(true);
+  };
+
+  // const handleRegister = () => {
+  //   navigation.navigate('Parent');
+  // };
+
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required('Name is required'),
+    email: Yup.string()
+      .email('Enter a valid email address')
+      .required('Email is required'),
+    contact: Yup.string()
+      .matches(
+        /^\d{8,12}$/, // Allows only digits, 8 to 12 characters long
+        'Enter a valid contact number (8-12 digits only)',
+      )
+      .required('Contact is required'),
+    whatsapp_number: Yup.string().matches(
+      /^\d{8,12}$/, // Allows only digits, 8 to 12 characters long
+      'Enter a valid contact number (8-12 digits only)',
+    ),
+    dob: Yup.date()
+      .max(new Date(), 'Date of Birth cannot be in the future')
+      .required('Date of Birth is required'),
+    password: Yup.string()
+      .min(6, 'Password must be at least 6 characters long')
+      .required('Password is required'),
+    confirm_password: Yup.string()
+      .oneOf([Yup.ref('password')], 'Passwords must match')
+      .required('Confirm password is required'),
+  });
+  const onSubmit = async values => {
+    console.log(values, 'values');
     navigation.navigate('Parent');
   };
+
+  // checkbox
+  const [checkbox1, setCheckbox1] = useState(false);
+  const [checkbox2, setCheckbox2] = useState(false);
+
+  // Date
+  const [date, setDate] = useState(new Date());
+  const [open, setOpen] = useState(false);
+
+  const MakeitSame = () => {
+    const formik = formikRef.current;
+    const newValue = !checkbox1;
+    setCheckbox1(newValue);
+    if (formik) {
+      if (newValue) {
+        // Checkbox checked: copy contact and country
+        const contact = formik.values.contact;
+        formik.setFieldValue('whatsapp_number', contact);
+        setCountryWhatsapp(countryContact);
+      } else {
+        // Checkbox unchecked: clear WhatsApp & set default code (+91)
+        formik.setFieldValue('whatsapp_number', '');
+        setCountryWhatsapp('91');
+      }
+    }
+  };
+  const formattedDate = moment(date).format('DD MMM YYYY');
+  console.log(formattedDate, 'formattedDate');
+
+  const [showPass1, setShowPass1] = useState(false);
+  const [showPass2, setShowPass2] = useState(false);
+
   return (
     <>
       <AppHeader screenName={screenName} />
-      <KeyboardAvoidingView
-        behavior={isPlatformIOS ? 'padding' : 'height'} // Adjust behavior for iOS
-        className="flex-1 justify-center "
-        keyboardVerticalOffset={5} // Adjust this value as needed
-      >
-        <SafeAreaView className="flex-1 justify-center">
+      <SafeAreaView className="flex-1">
+        <KeyboardAvoidingView
+          behavior={isPlatformIOS ? 'padding' : 'height'}
+          style={{flex: 1}}>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View className="flex-1 ">
-              <ScrollView
-                showsVerticalScrollIndicator={false}
-                showsHorizontalScrollIndicator={false}
-                style={{backgroundColor: colors.background_default}}
-                className="flex-1 pb-4">
-                {/* header 1 */}
-                <InputHeader label={header1} />
-                {/* first container */}
-                <View className="p-3 py-2 pb-4  flex-column ">
-                  <InputField label={nameinput} />
-                  <InputField label={emailinput} />
+            <ScrollView
+              contentContainerStyle={{flexGrow: 1}} // Ensures scrollability
+              showsVerticalScrollIndicator={false}
+              style={{backgroundColor: colors.background_default}}>
+              <Formik
+                innerRef={formikRef}
+                initialValues={{
+                  name: '',
+                  email: '',
+                  contact: '',
+                  whatsapp_number: '',
+                  dob: '',
+                  password: '',
+                  confirm_password: '',
+                }}
+                validationSchema={validationSchema}
+                onSubmit={onSubmit}>
+                {({
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  values,
+                  errors,
+                  touched,
+                  setFieldValue,
+                }) => (
+                  <View className="flex-1">
+                    {/* header 1 */}
+                    <InputHeader label={header1} />
 
-                  {/* Contact Number input */}
-                  <View className="flex-row space-x-3">
-                    <View>
-                      <InputField label={'+91'} />
-                    </View>
-                    <View className="flex-1">
-                      <InputField label={contactinput} />
-                    </View>
-                  </View>
-
-                  {/* whatsapp Number input */}
-                  <View className="flex-row space-x-3">
-                    <View>
-                      <InputField label={'+91'} />
-                    </View>
-                    <View className="flex-1">
-                      <InputField label={whatsappinput} />
-                    </View>
-                  </View>
-
-                  {/* first checkbox */}
-                  <View className="flex-row space-x-1 items-center my-0.5">
-                    <Checkbox.Android
-                      status={checked ? 'checked' : 'unchecked'}
-                      onPress={() => {
-                        setChecked(!checked);
-                      }}
-                    />
-                    <Text
-                      className="font-regular  text-sm"
-                      style={{color: colors.text_disabled}}>
-                      {first_checkbox}
-                    </Text>
-                  </View>
-
-                  {/* DOB */}
-                  <InputField
-                    label={dobinput}
-                    righticon={
-                      <TextInput.Icon
-                        icon={() => (
-                          <Iconicon
-                            name="calendar"
-                            size={24}
-                            color={colors.iconColor}
-                          />
-                        )}
+                    {/* first container */}
+                    <View className="p-3 py-2 pb-4">
+                      <InputField
+                        label={nameinput}
+                        value={values.name}
+                        onChangeText={handleChange('name')}
+                        onBlur={handleBlur('name')}
+                        error={errors?.name}
+                        touched={touched.name}
                       />
-                    }
-                  />
-                </View>
-
-                {/* header 2 */}
-                <InputHeader label={header2} />
-
-                {/* second container */}
-                <View className="p-3 py-2 pb-4  flex-column ">
-                  <InputField
-                    label={passwordinput}
-                    righticon={
-                      <TextInput.Icon
-                        icon={() => (
-                          <Iconicon
-                            name="eye"
-                            size={24}
-                            color={colors.iconColor}
-                          />
-                        )}
+                      <InputField
+                        label={emailinput}
+                        value={values.email}
+                        onChangeText={handleChange('email')}
+                        onBlur={handleBlur('email')}
+                        error={errors?.email}
+                        touched={touched.email}
                       />
-                    }
-                  />
 
-                  <InputField
-                    label={confirm_pass}
-                    righticon={
-                      <TextInput.Icon
-                        icon={() => (
-                          <Iconicon
-                            name="eye"
-                            size={24}
-                            color={colors.iconColor}
+                      {/* Contact Number input */}
+                      <View className="flex-row space-x-3">
+                        <View>
+                          <InputField
+                            label={`+${countryContact}`}
+                            onPress={() => handleCountryPicker('contact')}
                           />
-                        )}
-                      />
-                    }
-                  />
-                </View>
-              </ScrollView>
-              {/* Fixed Bottom Button */}
-              <View className="absolute bottom-2 left-0 right-0 p-4 shadow-xl">
-                {/* Second checkbox */}
-                <View className="flex-row space-x-1 items-center mb-2">
-                  <Checkbox.Android
-                    status={checked ? 'checked' : 'unchecked'}
-                    onPress={() => setChecked(!checked)}
-                  />
+                        </View>
+                        <View className="flex-1">
+                          <InputField
+                            label={contactinput}
+                            value={values.contact}
+                            onChangeText={handleChange('contact')}
+                            onBlur={handleBlur('contact')}
+                            error={errors?.contact}
+                            touched={touched.contact}
+                          />
+                        </View>
+                      </View>
 
-                  <View className="flex-row ">
-                    <Text
-                      className="font-regular text-sm"
-                      style={{color: colors.text_disabled}}>
-                      {second_checkbox}
-                    </Text>
-                    <Text
-                      className="font-regular text-sm underline"
-                      style={{color: colors.text_disabled}}>
-                      {second_checkbox_underline}
-                    </Text>
+                      {/* whatsapp Number input */}
+                      <View className="flex-row space-x-3">
+                        <View>
+                          <InputField
+                            label={`+${countryWhatsapp}`}
+                            onPress={() =>
+                              handleCountryPicker('whatsapp_number')
+                            }
+                          />
+                        </View>
+                        <View className="flex-1">
+                          <InputField
+                            label={whatsappinput}
+                            value={values.whatsapp_number}
+                            onChangeText={handleChange('whatsapp_number')}
+                            onBlur={handleBlur('whatsapp_number')}
+                            error={errors?.whatsapp_number}
+                            touched={touched.whatsapp_number}
+                          />
+                        </View>
+                      </View>
+
+                      {/* first checkbox */}
+                      <View className="flex-row space-x-1 items-center my-0.5">
+                        <Checkbox.Android
+                          status={checkbox1 ? 'checked' : 'unchecked'}
+                          onPress={MakeitSame}
+                        />
+                        <Text
+                          className="font-regular text-sm"
+                          style={{color: colors.text_disabled}}>
+                          {first_checkbox}
+                        </Text>
+                      </View>
+
+                      {/* DOB */}
+                      <InputField
+                        disabled={true}
+                        label={dobinput}
+                        value={formattedDate}
+                        onChangeText={handleChange('dob')}
+                        onBlur={handleBlur('dob')}
+                        error={errors?.dob}
+                        touched={touched.dob}
+                        righticon={
+                          <TextInput.Icon
+                            onPress={() => setOpen(true)}
+                            icon={() => (
+                              <Iconicon
+                                name="calendar"
+                                size={24}
+                                color={colors.iconColor}
+                              />
+                            )}
+                          />
+                        }
+                      />
+                    </View>
+
+                    {/* header 2 */}
+                    <InputHeader label={header2} />
+
+                    {/* second container */}
+                    <View className="p-3 py-2 pb-4">
+                      <InputField
+                        label={passwordinput}
+                        value={values.password}
+                        onChangeText={handleChange('password')}
+                        onBlur={handleBlur('password')}
+                        error={errors?.password}
+                        touched={touched.password}
+                        secureTextEntry={showPass1}
+                        righticon={
+                          <TextInput.Icon
+                            onPress={() => setShowPass1(!showPass1)}
+                            icon={() => (
+                              <Iconicon
+                                name={showPass1 ? 'eye-off-outline' : 'eye'}
+                                size={24}
+                                color={colors.iconColor}
+                              />
+                            )}
+                          />
+                        }
+                      />
+
+                      <InputField
+                        label={confirm_pass}
+                        value={values.confirm_password}
+                        onChangeText={handleChange('confirm_password')}
+                        onBlur={handleBlur('confirm_password')}
+                        error={errors?.confirm_password}
+                        touched={touched.confirm_password}
+                        secureTextEntry={showPass2}
+                        righticon={
+                          <TextInput.Icon
+                            onPress={() => setShowPass2(!showPass2)}
+                            icon={() => (
+                              <Iconicon
+                                name={showPass2 ? 'eye-off-outline' : 'eye'}
+                                size={24}
+                                color={colors.iconColor}
+                              />
+                            )}
+                          />
+                        }
+                      />
+                    </View>
                   </View>
-                </View>
-                <PrimaryButton label={regBtn} onPress={handleRegister} />
+                )}
+              </Formik>
+            </ScrollView>
+          </TouchableWithoutFeedback>
+
+          {/* Fixed Bottom Button */}
+          <View
+            className="p-4 pt-1 shadow-xl "
+            style={{
+              backgroundColor: colors.background_default,
+            }}>
+            {/* Second checkbox */}
+            <View className="flex-row space-x-1 items-center mb-2">
+              <Checkbox.Android
+                status={checkbox2 ? 'checked' : 'unchecked'}
+                onPress={() => setCheckbox2(!checkbox2)}
+              />
+
+              <View className="flex-row ">
+                <Text
+                  className="font-regular text-sm"
+                  style={{color: colors.text_disabled}}>
+                  {second_checkbox}
+                </Text>
+                <Text
+                  className="font-regular text-sm underline"
+                  style={{color: colors.text_disabled}}>
+                  {second_checkbox_underline}
+                </Text>
               </View>
             </View>
-          </TouchableWithoutFeedback>
-        </SafeAreaView>
-      </KeyboardAvoidingView>
+            <PrimaryButton
+              label={regBtn}
+              onPress={() => formikRef.current?.handleSubmit()}
+            />
+          </View>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+
+      {visible && (
+        <CountryPickerModal
+          visible={visible}
+          setVisible={setVisible}
+          onSelect={onSelect}
+        />
+      )}
+
+      {open && (
+        <DatePickerComponent
+          open={open}
+          setOpen={setOpen}
+          date={date}
+          setDate={setDate}
+        />
+      )}
     </>
   );
 }

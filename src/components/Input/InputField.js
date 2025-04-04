@@ -14,12 +14,16 @@ const InputField = ({
   touched,
   limit,
   righticon,
+  onPress,
+  disabled
 }) => {
   let {colors} = useTheme();
 
   return (
     <View className="my-1">
       <TextInput
+      disabled={disabled}
+      onPress={onPress}
         maxLength={limit}
         value={value}
         label={

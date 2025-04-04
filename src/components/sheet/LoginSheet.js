@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Divider, Portal, Text, TextInput, useTheme} from 'react-native-paper';
 import BottomSheet, {
@@ -10,9 +10,11 @@ import PrimaryButton from '../button/PrimaryButton';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import Iconicon from 'react-native-vector-icons/Ionicons';
 import {useTranslation} from 'react-i18next';
-import ChangeLanguage from '../ChangeLanguage';
+import {Formik} from 'formik';
+import * as Yup from 'yup';
 
 export default function Loginsheet({sheetRef}) {
+  const formikRef = useRef(null); // Create a ref for Formik instance
   const {t} = useTranslation();
   const {colors} = useTheme();
   const {
@@ -63,6 +65,18 @@ export default function Loginsheet({sheetRef}) {
     navigation.navigate('Register');
   };
 
+  const [showPass, setShowPass] = useState(false);
+  // Form Validation Schema
+  const validateScheme = Yup.object().shape({
+    email: Yup.string()
+      .email('Enter a valid email address')
+      .required('Email is required'),
+    password: Yup.string().required('Password is required'),
+  });
+  const onSubmit = async values => {
+    console.log(values, 'values');
+  };
+
   return (
     <Portal>
       <BottomSheet
@@ -88,35 +102,68 @@ export default function Loginsheet({sheetRef}) {
               {loginchild}
             </Text>
           </View>
-          {/* <ChangeLanguage /> */}
-          {/* Main container */}
           <View className="mx-3 flex-column  space-y-3.5">
-            {/* inputs */}
-            <View className="flex-column  space-y-2.5   mb-2">
-              <View>
-                <InputField placeholder={emailInput} label={emailInput} />
-              </View>
-              <View>
-                <InputField
-                  placeholder={passwordinput}
-                  label={passwordinput}
-                  righticon={
-                    <TextInput.Icon
-                      icon={() => (
-                        <Iconicon
-                          name="eye"
-                          size={24}
-                          color={colors.iconColor}
-                        />
-                      )}
+            <Formik
+              innerRef={formikRef} // Assign ref to Formik
+              initialValues={{
+                email: '',
+                password: '',
+              }}
+              validationSchema={validateScheme}
+              onSubmit={onSubmit}>
+              {({
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                values,
+                errors,
+                touched,
+              }) => (
+                <>
+                  {/* inputs */}
+                  <View className="flex-column  space-y-2.5   mb-2">
+                    <InputField
+                      placeholder={emailInput}
+                      label={emailInput}
+                      value={values.email}
+                      onChangeText={handleChange('email')}
+                      onBlur={handleBlur('email')}
+                      error={errors?.email}
+                      touched={touched.email}
                     />
-                  }
-                />
-              </View>
-            </View>
+                    <InputField
+                      placeholder={passwordinput}
+                      label={passwordinput}
+                      value={values.password}
+                      onChangeText={handleChange('password')}
+                      onBlur={handleBlur('password')}
+                      error={errors?.password}
+                      touched={touched.password}
+                      secureTextEntry={showPass}
+                      righticon={
+                        <TextInput.Icon
+                          onPress={() => setShowPass(!showPass)}
+                          icon={() => (
+                            <Iconicon
+                              name={showPass ? 'eye-off-outline' : 'eye'}
+                              size={24}
+                              color={colors.iconColor}
+                            />
+                          )}
+                        />
+                      }
+                    />
+                  </View>
+                </>
+              )}
+            </Formik>
+
             {/*  Login Btn */}
             <View>
-              <PrimaryButton label={loginBtn} />
+              <PrimaryButton
+                label={loginBtn}
+                onPress={() => formikRef.current?.handleSubmit()}
+              />
             </View>
 
             {/* forgot content */}

@@ -58,70 +58,68 @@ export default function Step5() {
   ];
 
   // Sample data with unique IDs
-  const imageData = Array.from({length: 12}, (_, i) => ({
+  const imageData = Array.from({length: 4}, (_, i) => ({
     id: i + 1,
     name: `image_${String(i + 1).padStart(3, '0')}.jpg`,
   }));
 
   return (
     <>
-    <AppHeader screenName={screenName} secondTitle={subtitle} />
+      <AppHeader screenName={screenName} secondTitle={subtitle} />
+      <SafeAreaView
+        className="flex-1"
+        style={{backgroundColor: colors.background_default}}>
+        {/* Using FlatList as the main container */}
+        <FlatList
+          data={[{key: 'header'}, ...imageData]} // Add a dummy key for header
+          keyExtractor={(item, index) => item.key || index.toString()}
+          ListHeaderComponent={() => (
+            <>
+              <InputHeader label={header1} />
+              <View className="p-2.5">
+                <Text
+                  className="font-regular text-sm"
+                  style={{color: colors?.text_secondary}}>
+                  {child1}
+                </Text>
 
-    <SafeAreaView
-      className="flex-1"
-      style={{backgroundColor: colors.background_default}}>
-      {/* Using FlatList as the main container */}
-      <FlatList
-        data={[{key: 'header'}, ...imageData]} // Add a dummy key for header
-        keyExtractor={(item, index) => item.key || index.toString()}
-        ListHeaderComponent={() => (
-          <>
-            <InputHeader label={header1} />
-            <View className="p-2.5">
-              <Text
-                className="font-regular text-sm"
-                style={{color: colors?.text_secondary}}>
-                {child1}
-              </Text>
+                {/* Add File Button */}
+                <View className="py-3">
+                  <TransparentBtn
+                    bg={true}
+                    label={'Add a file'}
+                    icon={
+                      <Ionicons
+                        name={'cloud-upload-outline'}
+                        size={24}
+                        color={colors.text_primary}
+                      />
+                    }
+                  />
+                </View>
 
-              {/* Add File Button */}
-              <View className="py-3">
-                <TransparentBtn
-                  bg={true}
-                  label={'Add a file'}
-                  icon={
-                    <Ionicons
-                      name={'cloud-upload-outline'}
-                      size={24}
-                      color={colors.text_primary}
-                    />
-                  }
-                />
+                {/* Uploaded Files Header */}
+                <Text
+                  className="font-p_medium text-md"
+                  style={{color: colors?.text_secondary}}>
+                  {uploadHeader}
+                </Text>
               </View>
+            </>
+          )}
+          renderItem={({item}) =>
+            item.key === 'header' ? null : (
+              <UploadedImage colors={colors} data={[item]} />
+            )
+          }
+          contentContainerStyle={{paddingBottom: 80}}
+        />
 
-              {/* Uploaded Files Header */}
-              <Text
-                className="font-p_medium text-md"
-                style={{color: colors?.text_secondary}}>
-                {uploadHeader}
-              </Text>
-            </View>
-          </>
-        )}
-        renderItem={({item}) =>
-          item.key === 'header' ? null : (
-            <UploadedImage colors={colors} data={[item]} />
-          )
-        }
-        contentContainerStyle={{paddingBottom: 80}}
-      />
-
-      {/* Bottom Submit Button */}
-      <View className="absolute bottom-2 left-0 right-0 p-4 shadow-xl">
-        <PrimaryButton label={submitBtn} />
-      </View>
-    </SafeAreaView>
+        {/* Bottom Submit Button */}
+        <View className="absolute bottom-2 left-0 right-0 p-4 shadow-xl">
+          <PrimaryButton label={submitBtn} />
+        </View>
+      </SafeAreaView>
     </>
-
   );
 }

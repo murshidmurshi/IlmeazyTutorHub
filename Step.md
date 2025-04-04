@@ -391,3 +391,9 @@ also don’t forget to import this line in MainApplication.java
 
 for Country Picker
 # npm i react-native-country-picker-modal --force
+
+For Date picker
+# npm install react-native-date-picker
+
+for Document picker
+# npm install react-native-document-picker
