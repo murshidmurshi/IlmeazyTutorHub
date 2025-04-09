@@ -1,4 +1,5 @@
 import {
+  Alert,
   Keyboard,
   KeyboardAvoidingView,
   SafeAreaView,
@@ -20,8 +21,13 @@ import PrimaryButton from '../../components/button/PrimaryButton';
 import {useNavigation} from '@react-navigation/native';
 import OptionSheet from '../../components/sheet/OptionSheet';
 import CountryPickerModal from '../../components/modal/CountryPickerModal';
+import {Formik} from 'formik';
+import * as Yup from 'yup';
 
 export default function Step2() {
+  const formikRef = useRef(null); // Create a ref for Formik instance
+  const formik = formikRef.current;
+
   let {colors} = useTheme();
   let navigation = useNavigation();
   let {t} = useTranslation();
@@ -58,17 +64,24 @@ export default function Step2() {
   ];
 
   const [selectedOption, setSelectedOption] = useState(null);
-  const sheetRef = useRef(null);
+  const [selectedData, setselectedData] = useState([]);
+  console.log(selectedData, 'selectedData');
 
+  const sheetRef = useRef(null);
   const [country, setCountry] = useState(null);
   const [visible, setVisible] = useState(false);
   const onSelect = selectedCountry => {
-    setCountry(selectedCountry);
-    setVisible(false);
+    let countryName = selectedCountry?.name;
+    if (countryName) {
+      formik.setFieldValue('country', countryName);
+      setCountry(selectedCountry);
+      setVisible(false);
+    }
   };
 
   const mazhabOptions = {
     title: 'Select Mazhab',
+    key: 'mazhab',
     data: [
       {label: 'Shafi', value: 'shafi'},
       {label: 'Hanafi', value: 'hanafi'},
@@ -79,6 +92,7 @@ export default function Step2() {
 
   const genderOptions = {
     title: 'Select Gender',
+    key: 'gender',
     data: [
       {label: 'Male', value: 'male'},
       {label: 'Female', value: 'female'},
@@ -87,6 +101,7 @@ export default function Step2() {
 
   const stateOptions = {
     title: 'Select State',
+    key: 'state',
     data: [
       {label: 'Karnataka', value: 'karnataka'},
       {label: 'Maharashtra', value: 'maharashtra'},
@@ -98,6 +113,7 @@ export default function Step2() {
 
   const cityOptions = {
     title: 'Select City',
+    key: 'city',
     data: [
       {label: 'Bangalore', value: 'bangalore'},
       {label: 'Mumbai', value: 'mumbai'},
@@ -124,7 +140,21 @@ export default function Step2() {
     // Open the bottom sheet
     sheetRef.current?.expand();
   };
-  const handleNavigate = async () => {
+  const handleNavigate = async () => {};
+
+  const validationSchema = Yup.object().shape({
+    mazhab: Yup.string().required('Mazhab is required'),
+    gender: Yup.string().required('Gender is required'),
+    country: Yup.string().required('Country is required'),
+    state: Yup.string().required('State is required'),
+    city: Yup.string().required('City is required'),
+    place: Yup.string().required('Place is required'),
+    bio: Yup.string()
+      .min(10, 'Bio must be at least 10 characters')
+      .required('Bio is required'),
+  });
+  const onSubmit = async values => {
+    console.log(values, 'values');
     navigation.navigate('Step3');
   };
 
@@ -145,65 +175,139 @@ export default function Step2() {
                 showsHorizontalScrollIndicator={false}
                 style={{backgroundColor: colors.background_default}}
                 className="flex-1 pb-4">
-                {/* header 1 */}
+                <Formik
+                  innerRef={formikRef}
+                  initialValues={{
+                    mazhab: '',
+                    gender: '',
+                    country: '',
+                    state: '',
+                    city: '',
+                    place: '',
+                    bio: '',
+                  }}
+                  // validationSchema={validationSchema}
+                  onSubmit={onSubmit}>
+                  {({
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                    values,
+                    errors,
+                    touched,
+                    setFieldValue,
+                  }) => (
+                    <View className="flex-1">
+                      {/* header 1 */}
+                      <InputHeader label={header1} />
+                      <View className="p-3 py-2 pb-4  flex-column ">
+                        {/* input for dropDown1 for selecting Mazhab  */}
+                        <TouchableInput
+                          label={mazhabPlaceholder}
+                          onPress={() => handleInputPress('mazhab')}
+                          value={values?.mazhab}
+                          onChangeText={handleChange('mazhab')}
+                          onBlur={handleBlur('mazhab')}
+                          error={errors?.mazhab}
+                          touched={touched.mazhab}
+                        />
 
-                <InputHeader label={header1} />
-                <View className="p-3 py-2 pb-4  flex-column ">
-                  {/* input for dropDown1 for selecting Mazhab  */}
-                  <TouchableInput
-                    label={mazhabPlaceholder}
-                    onPress={() => handleInputPress('mazhab')}
-                    // value={mazhabCategory1}
-                  />
+                        {/* input for dropDown1 for selecting Gender  */}
+                        <TouchableInput
+                          label={genderPlaceholder}
+                          onPress={() => handleInputPress('gender')}
+                          value={values?.gender}
+                          onChangeText={handleChange('gender')}
+                          onBlur={handleBlur('gender')}
+                          error={errors?.gender}
+                          touched={touched.gender}
+                        />
+                      </View>
 
-                  {/* input for dropDown1 for selecting Gender  */}
-                  <TouchableInput
-                    label={genderPlaceholder}
-                    onPress={() => handleInputPress('gender')}
-                    // value={mazhabCategory1}
-                  />
-                </View>
+                      <InputHeader label={header2} />
+                      <View className="p-3 py-2 pb-4  flex-column ">
+                        {/* input for dropDown1 for selecting country  */}
+                        <TouchableInput
+                          label={countryPlaceholder}
+                          onPress={() => handleInputPress('country')}
+                          value={values?.country}
+                          onChangeText={handleChange('country')}
+                          onBlur={handleBlur('country')}
+                          error={errors?.country}
+                          touched={touched.country}
+                        />
 
-                <InputHeader label={header2} />
-                <View className="p-3 py-2 pb-4  flex-column ">
-                  {/* input for dropDown1 for selecting country  */}
-                  <TouchableInput
-                    label={countryPlaceholder}
-                    onPress={() => handleInputPress('country')}
-                    // value={mazhabCategory1}
-                  />
+                        {/* input for dropDown1 for selecting state  */}
+                        <TouchableInput
+                          label={statePlaceholder}
+                          onPress={() => handleInputPress('state')}
+                          value={values?.state}
+                          onChangeText={handleChange('state')}
+                          onBlur={handleBlur('state')}
+                          error={errors?.state}
+                          touched={touched.state}
 
-                  {/* input for dropDown1 for selecting state  */}
-                  <TouchableInput
-                    label={statePlaceholder}
-                    onPress={() => handleInputPress('state')}
+                          // value={mazhabCategory1}
+                        />
+                        {/* input for dropDown1 for selecting city  */}
+                        <TouchableInput
+                          label={cityPlaceholder}
+                          onPress={() => handleInputPress('city')}
+                          value={values?.city}
+                          onChangeText={handleChange('city')}
+                          onBlur={handleBlur('city')}
+                          error={errors?.city}
+                          touched={touched.city}
 
-                    // value={mazhabCategory1}
-                  />
-                  {/* input for dropDown1 for selecting city  */}
-                  <TouchableInput
-                    label={cityPlaceholder}
-                    onPress={() => handleInputPress('city')}
+                          // value={mazhabCategory1}
+                        />
+                        <InputField
+                          label={placePlaceholder}
+                          value={values?.place}
+                          onChangeText={handleChange('place')}
+                          onBlur={handleBlur('place')}
+                          error={errors?.place}
+                          touched={touched.place}
+                        />
+                      </View>
 
-                    // value={mazhabCategory1}
-                  />
-                  <InputField label={placePlaceholder} />
-                </View>
-
-                <InputHeader label={header3} />
-                <View className="p-3 py-2 pb-4  flex-column ">
-                  <InputField label={bioPlaceholder} />
-                </View>
+                      <InputHeader label={header3} />
+                      <View className="p-3 py-2 pb-4  flex-column ">
+                        <InputField
+                          label={bioPlaceholder}
+                          value={values?.bio}
+                          onChangeText={handleChange('bio')}
+                          onBlur={handleBlur('bio')}
+                          error={errors?.bio}
+                          touched={touched.bio}
+                        />
+                      </View>
+                    </View>
+                  )}
+                </Formik>
               </ScrollView>
-              <View className="absolute bottom-2 left-0 right-0 p-4  shadow-xl">
-                <PrimaryButton label={stepBtn} onPress={handleNavigate} />
+              <View
+                className="p-4 pt-1 shadow-xl  "
+                style={{
+                  backgroundColor: colors.background_default,
+                }}>
+                <PrimaryButton
+                  label={stepBtn}
+                  onPress={() => formikRef.current?.handleSubmit()}
+                />
               </View>
             </View>
           </TouchableWithoutFeedback>
         </SafeAreaView>
       </KeyboardAvoidingView>
 
-      <OptionSheet sheetRef={sheetRef} data={selectedOption} />
+      <OptionSheet
+        sheetRef={sheetRef}
+        data={selectedOption}
+        setselectedData={setselectedData}
+        selectedData={selectedData}
+        formik={formik}
+      />
       {visible && (
         <CountryPickerModal
           visible={visible}

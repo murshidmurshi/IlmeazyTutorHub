@@ -17,7 +17,7 @@ export default function TouchableInput({
   return (
     <>
       <TouchableOpacity
-        className="w-full flex-row items-center justify-between border border-gray-300 rounded-xl px-4 h-[55px] my-2"
+        className="w-full flex-row items-center justify-between border border-gray-300 rounded-xl px-4 h-[49px] my-2"
         style={{
           borderColor: hexToRgba(colors.text_disabled, 0.4),
           backgroundColor: 'transparent',
@@ -27,9 +27,9 @@ export default function TouchableInput({
         <View className="flex-1">
           {label && value && (
             <Text
-              className="text-md font-regular"
+              className="text-xs font-regular bg-transparent absolute bottom-[27px]"
               style={{
-                color: colors.text_primary,
+                color: colors.outline,
               }}>
               {label}
             </Text>
