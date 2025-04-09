@@ -15,7 +15,7 @@ const PrimaryButton = ({label, bg, onPress}) => {
       rippleColor={rippleColor}
       mode="contained"
       onPress={onPress}
-      className="p-1 rounded-xl"
+      className="p-1 rounded-xl mb-2"
       style={BgStyle} // ✅ Corrected style
     >
       <Text className={`font-semi text-center text-[17px] ${textcolor} `}>

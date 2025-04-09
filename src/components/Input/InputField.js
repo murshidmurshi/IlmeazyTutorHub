@@ -34,7 +34,7 @@ const InputField = ({
         onChangeText={onChangeText}
         style={{
           backgroundColor: 'transparent',
-          height: 52,
+          height: 49,
         }}
         className="text-md px-1 font-medium"
         mode="outlined"
@@ -45,7 +45,7 @@ const InputField = ({
           colors: {
             primary: colors.primary,
             outline: hexToRgba(colors.text_disabled, 0.4),
-            error: hexToRgba(colors.error_main, 0.3),
+            error: hexToRgba(colors.error_main, 0.4),
           },
         }}
         contentStyle={{
