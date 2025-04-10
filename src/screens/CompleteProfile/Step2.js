@@ -65,7 +65,6 @@ export default function Step2() {
 
   const [selectedOption, setSelectedOption] = useState(null);
   const [selectedData, setselectedData] = useState([]);
-  console.log(selectedData, 'selectedData');
 
   const sheetRef = useRef(null);
   const [country, setCountry] = useState(null);
