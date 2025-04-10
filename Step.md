@@ -381,19 +381,24 @@ for Localization
 # npm install react-native-localize i18next react-i18next
 
 # In android
+
 in Android add this 2 lines to in MainApplication.java
 // Enable RTL layout support
 val sharedI18nUtilInstance = I18nUtil.getInstance()
 sharedI18nUtilInstance.allowRTL(applicationContext, true)
 
 also don’t forget to import this line in MainApplication.java
+
 # import com.facebook.react.modules.i18nmanager.I18nUtil
 
 for Country Picker
+
 # npm i react-native-country-picker-modal --force
 
 For Date picker
+
 # npm install react-native-date-picker
 
 for Document picker
+
 # npm install react-native-document-picker

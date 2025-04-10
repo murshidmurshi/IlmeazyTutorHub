@@ -19,8 +19,12 @@ import PrimaryButton from '../../components/button/PrimaryButton';
 import TimeSlots from '../../components/Input/TimeSlots';
 import OptionSheet from '../../components/sheet/OptionSheet';
 import {useNavigation} from '@react-navigation/native';
+import {Formik} from 'formik';
+import * as Yup from 'yup';
 
 export default function Step4() {
+  const formikRef = useRef(null); // Create a ref for Formik instance
+  const formik = formikRef.current;
   let {colors} = useTheme();
   let navigation = useNavigation();
   let {t} = useTranslation();
@@ -78,12 +82,17 @@ export default function Step4() {
     title: t('Steps.Step4.slotCategory.timeslot.title'),
     categories: timeslotCategories,
   };
-  const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState({
+    Sesson: sessionCategories[0],
+    Duration: durationCategories[1],
+    Timeslot: timeslotCategories[0],
+  });
   const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedData, setselectedData] = useState([]);
   const sheetRef = useRef(null);
-
   const tutorType_option = {
     title: 'Select Tutor Type',
+    key: 'tutorType',
     data: [
       {label: 'School Teacher', value: 'school_teacher'},
       {label: 'Madrasa Teacher', value: 'madrasa_teacher'},
@@ -99,6 +108,8 @@ export default function Step4() {
 
   const teachingLang_option = {
     title: 'Select Teaching Language',
+    key: 'teachingLang',
+    multiple: 'yes',
     data: [
       {label: 'Arabic', value: 'arabic'},
       {label: 'Urdu', value: 'urdu'},
@@ -115,6 +126,7 @@ export default function Step4() {
 
   const course_option = {
     title: 'Select Course',
+    key: 'course',
     data: [
       {label: 'Tajweed & Quran Recitation', value: 'tajweed_quran'},
       {label: 'Hifz (Quran Memorization)', value: 'hifz'},
@@ -142,7 +154,9 @@ export default function Step4() {
     sheetRef.current?.expand();
   };
 
-  const handleNavigate = async () => {
+  const onSubmit = async values => {
+    console.log(values, 'values');
+    console.log(selected, 'selected');
     navigation.navigate('Step5');
   };
 
@@ -163,52 +177,116 @@ export default function Step4() {
                 showsHorizontalScrollIndicator={false}
                 style={{backgroundColor: colors.background_default}}
                 className="flex-1 pb-4">
-                {/* header 1 */}
-                <InputHeader label={header1} />
-                <View className="p-3 py-2 pb-4  flex-column ">
-                  {/* input for dropDown1 for selecting Type of Tutor  */}
-                  <TouchableInput
-                    label={tutorTypePlaceholder}
-                    onPress={() => handleInputPress('tutorType')}
-                  />
-                  {/* input for dropDown2 for selecting tutur teaching lang */}
-                  <TouchableInput
-                    label={teachingLanguagePlaceholder}
-                    onPress={() => handleInputPress('teachingLang')}
-                  />
-                  {/* input for dropDown3 for selecting course */}
-                  <TouchableInput
-                    label={coursePlaceholder}
-                    onPress={() => handleInputPress('course')}
-                  />
-                </View>
+                <Formik
+                  innerRef={formikRef}
+                  initialValues={{
+                    tutorType: '',
+                    teachingLang: null,
+                    course: '',
+                  }}
+                  // validationSchema={validationSchema}
+                  onSubmit={onSubmit}>
+                  {({
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                    values,
+                    errors,
+                    touched,
+                    setFieldValue,
+                  }) => (
+                    <View className="flex-1">
+                      {/* header 1 */}
+                      <InputHeader label={header1} />
+                      <View className="p-3 py-2 pb-4  flex-column ">
+                        {/* input for dropDown1 for selecting Type of Tutor  */}
+                        <TouchableInput
+                          label={tutorTypePlaceholder}
+                          onPress={() => handleInputPress('tutorType')}
+                          value={values?.tutorType}
+                          onChangeText={handleChange('tutorType')}
+                          onBlur={handleBlur('tutorType')}
+                          error={errors?.tutorType}
+                          touched={touched.tutorType}
+                        />
+                        {/* input for dropDown2 for selecting tutur teaching lang */}
+                        <TouchableInput
+                          label={teachingLanguagePlaceholder}
+                          onPress={() => handleInputPress('teachingLang')}
+                          // value={values?.teachingLang}
+                          onChangeText={handleChange('teachingLang')}
+                          onBlur={handleBlur('teachingLang')}
+                          error={errors?.teachingLang}
+                          touched={touched.teachingLang}
+                        />
 
-                <InputHeader label={header2} />
-                <TimeSlots
-                  data={sessiondata}
-                  selected={selected}
-                  setSelected={setSelected}
-                />
-                <TimeSlots
-                  data={durationdata}
-                  selected={selected}
-                  setSelected={setSelected}
-                />
-                <TimeSlots
-                  data={timeslotdata}
-                  selected={selected}
-                  setSelected={setSelected}
-                />
+                        <View className="flex-row flex-wrap gap-2 mb-3 ">
+                          {formik?.values?.teachingLang?.map((lang, idx) => (
+                            <View
+                              key={idx}
+                              className="px-3 py-1 rounded-lg shadow-sm"
+                              style={{
+                                backgroundColor: colors.background_neutral,
+                              }}>
+                              <Text
+                                className="font-regular text-sm"
+                                style={{color: colors.text_secondary}}>
+                                {lang}
+                              </Text>
+                            </View>
+                          ))}
+                        </View>
+
+                        {/* input for dropDown3 for selecting course */}
+                        <TouchableInput
+                          label={coursePlaceholder}
+                          onPress={() => handleInputPress('course')}
+                          value={values?.course}
+                          onChangeText={handleChange('course')}
+                          onBlur={handleBlur('course')}
+                          error={errors?.course}
+                          touched={touched.course}
+                        />
+                      </View>
+
+                      <InputHeader label={header2} />
+                      <TimeSlots
+                        data={sessiondata}
+                        selected={selected}
+                        setSelected={setSelected}
+                      />
+                      <TimeSlots
+                        data={durationdata}
+                        selected={selected}
+                        setSelected={setSelected}
+                      />
+                      <TimeSlots
+                        data={timeslotdata}
+                        selected={selected}
+                        setSelected={setSelected}
+                      />
+                    </View>
+                  )}
+                </Formik>
               </ScrollView>
               <View className="absolute bottom-2 left-0 right-0 p-4  shadow-xl">
-                <PrimaryButton label={stepBtn} onPress={handleNavigate} />
+                <PrimaryButton
+                  label={stepBtn}
+                  onPress={() => formikRef.current?.handleSubmit()}
+                />
               </View>
             </View>
           </TouchableWithoutFeedback>
         </SafeAreaView>
       </KeyboardAvoidingView>
 
-      <OptionSheet sheetRef={sheetRef} data={selectedOption} />
+      <OptionSheet
+        sheetRef={sheetRef}
+        data={selectedOption}
+        setselectedData={setselectedData}
+        selectedData={selectedData}
+        formik={formik}
+      />
     </>
   );
 }

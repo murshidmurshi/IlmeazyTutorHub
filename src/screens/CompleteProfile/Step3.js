@@ -19,8 +19,12 @@ import InputField from '../../components/Input/InputField';
 import PrimaryButton from '../../components/button/PrimaryButton';
 import {useNavigation} from '@react-navigation/native';
 import OptionSheet from '../../components/sheet/OptionSheet';
+import {Formik} from 'formik';
+import * as Yup from 'yup';
 
 export default function Step3() {
+  const formikRef = useRef(null); // Create a ref for Formik instance
+  const formik = formikRef.current;
   let {colors} = useTheme();
   let {t} = useTranslation();
   // Extract Step3 translations
@@ -52,6 +56,10 @@ export default function Step3() {
   ];
 
   const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedData, setselectedData] = useState([]);
+
+  console.log(selectedOption, 'selectedOption');
+
   const sheetRef = useRef(null);
   let navigation = useNavigation();
   const handleNavigate = async () => {
@@ -60,6 +68,7 @@ export default function Step3() {
 
   const generalE_option = {
     title: 'Select General Education',
+    key: 'generalQualification',
     data: [
       {label: 'No Formal Education', value: 'no_education'},
       {label: 'Primary School', value: 'primary'},
@@ -74,6 +83,7 @@ export default function Step3() {
 
   const islamicE_option = {
     title: 'Select Islamic Qualification',
+    key: 'islamicQualification',
     data: [
       {label: 'No Formal Islamic Education', value: 'no_islamic_education'},
       {label: 'Basic Madrasa Education', value: 'basic_madrasa'},
@@ -88,6 +98,8 @@ export default function Step3() {
 
   const languagesKnown_option = {
     title: 'Select Languages Known',
+    key: 'langKnown',
+    multiple: 'yes',
     data: [
       {label: 'Arabic', value: 'arabic'},
       {label: 'English', value: 'english'},
@@ -107,19 +119,57 @@ export default function Step3() {
     ],
   };
 
+  const validationSchema = Yup.object().shape({
+    generalQualification: Yup.string().required(
+      'General Qualification is rquired',
+    ),
+    islamicQualification: Yup.string().required(
+      'Islamic Qualification is required',
+    ),
+    teachingExperience: Yup.object().shape({
+      year: Yup.number()
+        .typeError('Year must be a number')
+        .min(0, 'Year connot be negative')
+        .required('Year is required'),
+      months: Yup.number()
+        .typeError('Months must be a number')
+        .min(0, 'Months cannot be negative')
+        .max(11, 'Months must be less than 12')
+        .required('Months are required'),
+    }),
+    langKnown: Yup.array().min(1, 'Select at least one language'),
+  });
+
   const handleInputPress = type => {
+    console.log(type, 'type');
+
     // Set the selected option dynamically
-    if (type === 'generalE') {
+    if (type === 'generalQualification') {
       setSelectedOption(generalE_option);
-    } else if (type === 'islamicE_option') {
+    } else if (type === 'islamicQualification') {
       setSelectedOption(islamicE_option);
-    } else if (type === 'languagesKnown_option') {
+    } else if (type === 'langKnown') {
       setSelectedOption(languagesKnown_option);
     }
-
     // Open the bottom sheet
     sheetRef.current?.expand();
   };
+
+  const onSubmit = async values => {
+    console.log(values, 'values');
+    navigation.navigate('Step4');
+  };
+
+  let initialValues = {
+    generalQualification: '',
+    islamicQualification: '',
+    teachingExperience: {
+      year: '',
+      months: '',
+    },
+    langKnown: [],
+  };
+  console.log(initialValues, 'initialValues');
 
   return (
     <>
@@ -138,52 +188,133 @@ export default function Step3() {
                 showsHorizontalScrollIndicator={false}
                 style={{backgroundColor: colors.background_default}}
                 className="flex-1 pb-4">
-                {/* header 1 */}
-                <InputHeader label={header1} />
-                <View className="p-3 py-2 pb-4  flex-column ">
-                  {/* input for dropDown1 for selecting General education  */}
-                  <TouchableInput
-                    label={generalQualificationPlaceholder}
-                    onPress={() => handleInputPress('generalE')}
-                  />
-
-                  {/* input for dropDown2 for selecting Islamic education  */}
-                  <TouchableInput
-                    label={islamicQualificationPlaceholder}
-                    onPress={() => handleInputPress('islamicE_option')}
-                  />
-                </View>
-
-                <InputHeader label={header2} />
-                <View className="p-3 py-2 pb-4  flex-column ">
-                  <View className="flex-row w-full space-x-5">
+                <Formik
+                  innerRef={formikRef}
+                  initialValues={initialValues}
+                  // validationSchema={validationSchema}
+                  onSubmit={onSubmit}>
+                  {({
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                    values,
+                    errors,
+                    touched,
+                    setFieldValue,
+                  }) => (
                     <View className="flex-1">
-                      <InputField label={year} />
-                    </View>
-                    <View className="flex-1">
-                      <InputField label={months} />
-                    </View>
-                  </View>
-                </View>
+                      {/* header 1 */}
+                      <InputHeader label={header1} />
+                      <View className="p-3 py-2 pb-4  flex-column ">
+                        {/* input for dropDown1 for selecting General education  */}
+                        <TouchableInput
+                          label={generalQualificationPlaceholder}
+                          onPress={() =>
+                            handleInputPress('generalQualification')
+                          }
+                          value={values?.generalQualification}
+                          onChangeText={handleChange('generalQualification')}
+                          onBlur={handleBlur('generalQualification')}
+                          error={errors?.generalQualification}
+                          touched={touched.generalQualification}
+                        />
 
-                <InputHeader label={header3} />
-                <View className="p-3 py-2 pb-4  flex-column ">
-                  {/* input for dropDown3 for selecting langknown */}
-                  <TouchableInput
-                    label={languagePlaceholder}
-                    onPress={() => handleInputPress('languagesKnown_option')}
-                  />
-                </View>
+                        {/* input for dropDown2 for selecting Islamic education  */}
+                        <TouchableInput
+                          label={islamicQualificationPlaceholder}
+                          onPress={() =>
+                            handleInputPress('islamicQualification')
+                          }
+                          value={values?.islamicQualification}
+                          onChangeText={handleChange('islamicQualification')}
+                          onBlur={handleBlur('islamicQualification')}
+                          error={errors?.islamicQualification}
+                          touched={touched.islamicQualification}
+                        />
+                      </View>
+
+                      <InputHeader label={header2} />
+                      <View className="p-3 py-2 pb-4  flex-column ">
+                        <View className="flex-row w-full space-x-5">
+                          <View className="flex-1">
+                            <InputField
+                              label={year}
+                              value={values?.teachingExperience?.year}
+                              onChangeText={handleChange(
+                                'teachingExperience.year',
+                              )}
+                              onBlur={handleBlur('teachingExperience.year')}
+                              error={errors?.teachingExperience?.year}
+                              touched={touched?.teachingExperience?.year}
+                            />
+                          </View>
+                          <View className="flex-1">
+                            <InputField
+                              label={months}
+                              value={values?.teachingExperience?.months}
+                              onChangeText={handleChange(
+                                'teachingExperience.months',
+                              )}
+                              onBlur={handleBlur('teachingExperience.months')}
+                              error={errors?.teachingExperience?.months}
+                              touched={touched?.teachingExperience?.months}
+                            />
+                          </View>
+                        </View>
+                      </View>
+
+                      <InputHeader label={header3} />
+                      <View className="p-3 py-2 pb-4  flex-column ">
+                        {/* input for dropDown3 for selecting langknown */}
+                        <TouchableInput
+                          label={languagePlaceholder}
+                          onPress={() => handleInputPress('langKnown')}
+                          // value={values?.langKnown}
+                          onChangeText={handleChange('langKnown')}
+                          onBlur={handleBlur('langKnown')}
+                          error={errors?.langKnown}
+                          touched={errors?.langKnown}
+                        />
+                      </View>
+
+                      <View className="flex-row flex-wrap gap-2 mx-2">
+                        {formik?.values?.langKnown?.map((lang, idx) => (
+                          <View
+                            key={idx}
+                            className="px-3 py-1 rounded-lg shadow-sm"
+                            style={{
+                              backgroundColor: colors.background_neutral,
+                            }}>
+                            <Text
+                              className="font-regular text-sm"
+                              style={{color: colors.text_secondary}}>
+                              {lang}
+                            </Text>
+                          </View>
+                        ))}
+                      </View>
+                    </View>
+                  )}
+                </Formik>
               </ScrollView>
               <View className="absolute bottom-2 left-0 right-0 p-4  shadow-xl">
-                <PrimaryButton label={stepBtn} onPress={handleNavigate} />
+                <PrimaryButton
+                  label={stepBtn}
+                  onPress={() => formikRef.current?.handleSubmit()}
+                />
               </View>
             </View>
           </TouchableWithoutFeedback>
         </SafeAreaView>
       </KeyboardAvoidingView>
 
-      <OptionSheet sheetRef={sheetRef} data={selectedOption} />
+      <OptionSheet
+        sheetRef={sheetRef}
+        data={selectedOption}
+        setselectedData={setselectedData}
+        selectedData={selectedData}
+        formik={formik}
+      />
     </>
   );
 }

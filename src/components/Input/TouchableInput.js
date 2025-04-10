@@ -27,9 +27,10 @@ export default function TouchableInput({
         <View className="flex-1">
           {label && value && (
             <Text
-              className="text-xs font-regular bg-transparent absolute bottom-[27px]"
+              className="text-xs font-regular absolute bottom-[27px] px-1"
               style={{
                 color: colors.outline,
+                backgroundColor: colors.background_default,
               }}>
               {label}
             </Text>

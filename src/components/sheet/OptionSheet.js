@@ -5,6 +5,7 @@ import BottomSheet, {
   BottomSheetScrollView,
 } from '@gorhom/bottom-sheet';
 import RadioSelector from './OptionComponent/RadioSelector';
+import CheckboxSelector from './OptionComponent/CheckboxSelector';
 
 export default function OptionSheet({
   sheetRef,
@@ -18,8 +19,9 @@ export default function OptionSheet({
 
   const optionData = data?.data || [];
   const optionKey = data?.key || '';
+  const isForCheckbox = data?.multiple || false;
   const [selectedValue, setSelectedValue] = useState('');
-
+  
   // ✅ When optionKey changes, set previously selected value from selectedData
   useEffect(() => {
     const existing = selectedData?.find(item => item?.type === optionKey);
@@ -75,11 +77,19 @@ export default function OptionSheet({
           contentContainerStyle={{paddingHorizontal: 20, paddingVertical: 10}}>
           <Text className="font-p_medium text-lg mb-5">{data?.title}</Text>
 
-          <RadioSelector
-            selectedValue={selectedValue}
-            setSelectedValue={setSelectedValue}
-            data={optionData}
-          />
+          {isForCheckbox ? (
+            <CheckboxSelector
+              selectedValues={selectedValue}
+              setSelectedValues={setSelectedValue}
+              data={optionData}
+            />
+          ) : (
+            <RadioSelector
+              selectedValue={selectedValue}
+              setSelectedValue={setSelectedValue}
+              data={optionData}
+            />
+          )}
         </BottomSheetScrollView>
       </BottomSheet>
     </Portal>
