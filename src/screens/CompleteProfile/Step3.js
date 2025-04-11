@@ -57,9 +57,6 @@ export default function Step3() {
 
   const [selectedOption, setSelectedOption] = useState(null);
   const [selectedData, setselectedData] = useState([]);
-
-  console.log(selectedOption, 'selectedOption');
-
   const sheetRef = useRef(null);
   let navigation = useNavigation();
   const handleNavigate = async () => {
@@ -278,7 +275,7 @@ export default function Step3() {
                       </View>
 
                       <View className="flex-row flex-wrap gap-2 mx-2">
-                        {formik?.values?.langKnown?.map((lang, idx) => (
+                        {selectedData[0]?.value?.map((lang, idx) => (
                           <View
                             key={idx}
                             className="px-3 py-1 rounded-lg shadow-sm"

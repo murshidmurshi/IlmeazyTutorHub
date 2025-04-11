@@ -221,7 +221,7 @@ export default function Step4() {
                         />
 
                         <View className="flex-row flex-wrap gap-2 mb-3 ">
-                          {formik?.values?.teachingLang?.map((lang, idx) => (
+                          {selectedData[0]?.value?.map((lang, idx) => (
                             <View
                               key={idx}
                               className="px-3 py-1 rounded-lg shadow-sm"

@@ -70,7 +70,7 @@ export default function Step2() {
   const [country, setCountry] = useState(null);
   const [visible, setVisible] = useState(false);
   const onSelect = selectedCountry => {
-    let countryName = selectedCountry?.name;
+    let countryName = selectedCountry?.name?.en;
     if (countryName) {
       formik.setFieldValue('country', countryName);
       setCountry(selectedCountry);

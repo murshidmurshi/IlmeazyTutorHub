@@ -4,11 +4,11 @@ import {Checkbox, Text, useTheme} from 'react-native-paper';
 export default function CheckboxSelector({selectedValues, setSelectedValues, data}) {
   const {colors} = useTheme();
 
-  const toggleValue = value => {
+  const toggleValue = async(value) => {
     if (selectedValues.includes(value)) {
-      setSelectedValues(selectedValues.filter(v => v !== value));
+     await setSelectedValues(selectedValues.filter(v => v !== value));
     } else {
-      setSelectedValues([...selectedValues, value]);
+      await setSelectedValues([...selectedValues, value]);
     }
   };
 

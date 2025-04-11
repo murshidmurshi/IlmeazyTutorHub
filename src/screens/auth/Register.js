@@ -62,19 +62,13 @@ export default function Register() {
     regBtn: t('Register.regBtn'),
   };
 
-  const [countryContact, setCountryContact] = useState('91');
-  const [countryWhatsapp, setCountryWhatsapp] = useState('91');
-
-  console.log(countryContact, 'countryContact');
-  console.log(countryWhatsapp, 'countryWhatsapp');
-
+  const [countryContact, setCountryContact] = useState('+91');
+  const [countryWhatsapp, setCountryWhatsapp] = useState('+91');
   const [currentField, setCurrentField] = useState(null); // <- NEW
   const [visible, setVisible] = useState(false);
 
   const onSelect = selectedCountry => {
-    console.log(selectedCountry, 'selectedCountry');
-
-    let countryCode = selectedCountry?.callingCode[0];
+    let countryCode = selectedCountry?.dial_code;
     if (currentField === 'contact') {
       setCountryContact(countryCode);
     } else if (currentField === 'whatsapp_number') {
@@ -229,7 +223,7 @@ export default function Register() {
                         <View className="flex-row space-x-3">
                           <View>
                             <InputField
-                              label={`+${countryContact}`}
+                              label={`${countryContact}`}
                               onPress={() => handleCountryPicker('contact')}
                             />
                           </View>
@@ -249,7 +243,7 @@ export default function Register() {
                         <View className="flex-row space-x-3">
                           <View>
                             <InputField
-                              label={`+${countryWhatsapp}`}
+                              label={`${countryWhatsapp}`}
                               onPress={() =>
                                 handleCountryPicker('whatsapp_number')
                               }

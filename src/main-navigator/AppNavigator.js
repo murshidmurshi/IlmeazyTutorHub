@@ -11,6 +11,7 @@ import Step2 from '../screens/CompleteProfile/Step2';
 import Step3 from '../screens/CompleteProfile/Step3';
 import Step4 from '../screens/CompleteProfile/Step4';
 import Step5 from '../screens/CompleteProfile/Step5';
+import ChooseType from '../screens/auth/ChooseType';
 
 const Stack = createNativeStackNavigator();
 export default function AppNavigator() {
@@ -65,12 +66,20 @@ export default function AppNavigator() {
             // options={{animation: 'fade_from_bottom'}}
           />
 
+          {/* Choose type  */}
+          <Stack.Screen
+            name="Choose type"
+            component={ChooseType}
+            // options={{animation: 'ios_from_right'}}
+            options={{animation: 'slide_from_bottom'}}
+          />
+
           {/* Register  */}
           <Stack.Screen
             name="Register"
             component={Register}
             // options={{animation: 'ios_from_right'}}
-            options={{animation: 'slide_from_bottom'}}
+            options={{animation: 'ios_from_right'}}
           />
 
           <Stack.Screen
@@ -98,8 +107,8 @@ export default function AppNavigator() {
             component={Step4}
             options={{animation: 'ios_from_right'}}
           />
-             {/* Step5  */}
-             <Stack.Screen
+          {/* Step5  */}
+          <Stack.Screen
             name="Step5"
             component={Step5}
             options={{animation: 'ios_from_right'}}
