@@ -7,7 +7,7 @@ import {useTranslation} from 'react-i18next';
 import TransparentBtn from '../../components/button/TransparentBtn';
 import PrimaryButton from '../../components/button/PrimaryButton';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-// import DocumentPicker from 'react-native-document-picker';
+import DocumentPicker from 'react-native-document-picker';
 
 // Uploaded Image Component
 const UploadedImage = ({colors, data}) => {
@@ -68,23 +68,25 @@ export default function Step5() {
   const [image, setImage] = useState([]);
 
   // Function to open the gallery
-  // const Pickerdocument = async () => {
-  //   try {
-  //     setpickerLoading(true);
-  //     const result = await DocumentPicker.pick({
-  //       type: [DocumentPicker.types.images], // Allows image selection
-  //     });
-  //     setImage([...image, result]);
-  //     setpickerLoading(false);
-  //   } catch (err) {
-  //     setpickerLoading(false);
-  //     if (DocumentPicker.isCancel(err)) {
-  //       console.log('User canceled file picker');
-  //     } else {
-  //       console.error('Error picking document:', err);
-  //     }
-  //   }
-  // };
+  const Pickerdocument = async () => {
+    if (pickerloading) return; // ✅ Prevent duplicate calls
+
+    try {
+      setpickerLoading(true);
+      const result = await DocumentPicker.pick({
+        type: [DocumentPicker.types.doc],
+      });
+      setImage(prev => [...prev, result]);
+    } catch (err) {
+      if (DocumentPicker.isCancel(err)) {
+        console.log('User canceled file picker');
+      } else {
+        console.log('Error picking document:', err);
+      }
+    } finally {
+      setpickerLoading(false);
+    }
+  };
 
   return (
     <>
@@ -109,7 +111,7 @@ export default function Step5() {
                 {/* Add File Button */}
                 <View className="py-3">
                   <TransparentBtn
-                    // onPress={Pickerdocument}
+                    onPress={Pickerdocument}
                     bg={true}
                     label={'Add a file'}
                     icon={

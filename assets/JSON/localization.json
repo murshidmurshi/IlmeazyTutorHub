@@ -11,6 +11,17 @@
       "regchild": "Sign up now and kick-start your tutor journey!",
       "regBtn": "Register"
     },
+    "ChooseType": {
+      "screenName": "Register ",
+      "header1": "Please choose your profile type",
+      "saveBtn": "Save and Continue",
+      "Type": {
+        "type1": "ILMEAZY Tutor",
+        "type2": "Language Tutor",
+        "type3": "Mufti",
+        "type4": "Ambassador"
+      }
+    },
     "Register": {
       "screenName": "Register as a Tutor",
       "header1": "Enter the details below. All fields are required.",
@@ -127,7 +138,7 @@
         "uploadHeader": "File uploaded"
       },
       "stepBtn": "Save and Continue",
-      "submitBtn":"Submit"
+      "submitBtn": "Submit"
     }
   },
   "ar": {
@@ -141,6 +152,17 @@
       "regQuestion": "جديد في ILMEAZY؟",
       "regchild": "سجّل الآن وابدأ رحلتك كمدرس!",
       "regBtn": "تسجيل"
+    },
+    "ChooseType": {
+      "screenName": "سجل",
+      "header1": "يرجى اختيار نوع ملفك الشخصي",
+      "saveBtn": "حفظ ومتابعة",
+      "Type": {
+        "type1": "معلم ILMEAZY",
+        "type2": "معلم لغة",
+        "type3": "مفتي",
+        "type4": "سفير"
+      }
     },
     "Register": {
       "screenName": "سجّل كمدرس",
@@ -270,6 +292,17 @@
       "regQuestion": "Baru di ILMEAZY?",
       "regchild": "Daftar sekarang dan mulai perjalanan Anda sebagai tutor!",
       "regBtn": "Daftar"
+    },
+    "ChooseType": {
+      "screenName": "Daftar",
+      "header1": "Silakan pilih jenis profil Anda",
+      "saveBtn": "Simpan dan Lanjutkan",
+      "Type": {
+        "type1": "Tutor ILMEAZY",
+        "type2": "Tutor Bahasa",
+        "type3": "Mufti",
+        "type4": "Duta"
+      }
     },
     "Register": {
       "screenName": "Daftar sebagai Tutor",

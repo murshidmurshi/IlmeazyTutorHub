@@ -62,7 +62,7 @@ export default function Loginsheet({sheetRef}) {
 
   const handleNavigate = async () => {
     await sheetRef.current?.close(); // Ensure ref is set before calling expand
-    navigation.navigate('Register');
+    navigation.navigate('Choose type');
   };
 
   const [showPass, setShowPass] = useState(false);

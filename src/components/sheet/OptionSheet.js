@@ -6,6 +6,7 @@ import BottomSheet, {
 } from '@gorhom/bottom-sheet';
 import RadioSelector from './OptionComponent/RadioSelector';
 import CheckboxSelector from './OptionComponent/CheckboxSelector';
+import {Alert} from 'react-native';
 
 export default function OptionSheet({
   sheetRef,
@@ -21,7 +22,7 @@ export default function OptionSheet({
   const optionKey = data?.key || '';
   const isForCheckbox = data?.multiple || false;
   const [selectedValue, setSelectedValue] = useState('');
-  
+
   // ✅ When optionKey changes, set previously selected value from selectedData
   useEffect(() => {
     const existing = selectedData?.find(item => item?.type === optionKey);
