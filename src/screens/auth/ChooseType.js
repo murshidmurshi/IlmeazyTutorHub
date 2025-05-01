@@ -65,6 +65,7 @@ export default function ChooseType() {
                   className="flex-row items-center my-1.5  rounded-lg p-1.5 "
                   style={{backgroundColor: colors.divider}}>
                   <RadioButton value={type?.name} />
+
                   <Text
                     className="font-regular text-md ml-1 "
                     style={{
