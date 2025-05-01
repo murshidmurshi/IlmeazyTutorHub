@@ -1,0 +1,424 @@
+{
+  "en": {
+    "Login": {
+      "greeting": "Welcome to ILMEAZY Tutor Hub",
+      "loginchild": "Enter your email and password to log in",
+      "emailInput": "Email",
+      "passwordinput": "Password",
+      "loginBtn": "Log In",
+      "forgot_pass": "Forgot Password?",
+      "regQuestion": "New to ILMEAZY?",
+      "regchild": "Sign up now and kick-start your tutor journey!",
+      "regBtn": "Register"
+    },
+    "ChooseType": {
+      "screenName": "Register ",
+      "header1": "Please choose your profile type",
+      "saveBtn": "Save and Continue",
+      "Type": {
+        "type1": "ILMEAZY Tutor",
+        "type2": "Language Tutor",
+        "type3": "Mufti",
+        "type4": "Ambassador"
+      }
+    },
+    "Register": {
+      "screenName": "Register as a Tutor",
+      "header1": "Enter the details below. All fields are required.",
+      "nameinput": "Full Name",
+      "emailinput": "Email Address",
+      "contactinput": "Mobile Number",
+      "whatsappinput": "WhatsApp Number",
+      "first_checkbox": "Use this number for WhatsApp",
+      "dobinput": "Date of Birth",
+      "header2": "Set your Tutor account password",
+      "passwordinput": "Enter Password",
+      "confirm_pass": "Confirm Password",
+      "second_checkbox": "I agree to the ",
+      "second_checkbox_underline": "Terms & Conditions",
+      "regBtn": "Register"
+    },
+    "Home": {
+      "welcomeMessage": "Welcome to Ilmeazy Tutor Hub",
+      "name": "Mahammad Murshid",
+      "ProfileInComplete": {
+        "header1": "You're almost there!",
+        "header2": "Complete your tutor profile by adding the missing details and submit your application for review",
+        "Category": {
+          "category1": "Tutor User Account",
+          "category2": "Personal Details",
+          "category3": "Educational Qualifications",
+          "category4": "Teaching Preferences",
+          "category5": "Relavant Documents"
+        },
+        "completeBtn": "Complete Profile"
+      }
+    },
+
+    "Steps": {
+      "screenName": "Complete your Profile",
+      "Step2": {
+        "subtitle": "Step 2 of 5",
+        "header1": "Enter your personal details",
+        "mazhabDropdown": {
+          "placeholder": "Mazhab"
+        },
+        "genderDropdown": {
+          "placeholder": "Gender"
+        },
+        "header2": "Address",
+        "countryDropdown": {
+          "placeholder": "Country"
+        },
+        "stateDropdown": {
+          "placeholder": "State"
+        },
+        "cityDropdown": {
+          "placeholder": "City"
+        },
+        "Place_placeholder": "Place",
+        "header3": "About Me",
+        "bioPlaceholder": "Enter your bio"
+      },
+      "Step3": {
+        "subtitle": "Step 3 of 5",
+        "header1": "Enter your Educational Qualifications",
+        "GeducationDropdown": {
+          "placeholder": "General Qualification"
+        },
+        "IeducationDropdown": {
+          "placeholder": "Islamic Qualification"
+        },
+        "header2": "Teaching Experience",
+        "year": "Year",
+        "months": "Months",
+        "header3": "Languages Known",
+        "langDropdown": {
+          "placeholder": "Languages"
+        }
+      },
+      "Step4": {
+        "subtitle": "Step 4 of 5",
+        "header1": "Teaching Preferences",
+        "T_typeDropdown": {
+          "placeholder": "Tutor Type"
+        },
+        "teaching_lan_Dropdown": {
+          "placeholder": "Teaching Language"
+        },
+        "courseDropdown": {
+          "placeholder": "Course"
+        },
+        "header2": "Preferred Timeslot",
+        "slotCategory": {
+          "sesson": {
+            "title": "Sesson",
+            "category1": "Morning ",
+            "category2": " Afternoon",
+            "category3": " Evening"
+          },
+          "duration": {
+            "title": "Duration",
+            "category1": "30 Minutes",
+            "category2": " 1 Hour"
+          },
+          "timeslot": {
+            "title": "Timeslot",
+            "category1": "06:00-06:30 AM ",
+            "category2": "06:30-07:00 AM",
+            "category3": "07:00-7:30 AM",
+            "category4": "07:30-8:30 AM"
+          }
+        }
+      },
+      "Step5": {
+        "subtitle": "Step 5 of 5",
+        "header1": "Upload Document",
+        "child1": "Follow the instructions you have received in the email and upload it securely from here.",
+        "uploadHeader": "File uploaded"
+      },
+      "stepBtn": "Save and Continue",
+      "submitBtn": "Submit"
+    }
+  },
+  "ar": {
+    "Login": {
+      "greeting": "مرحبًا بك في ILMEAZY Tutor Hub",
+      "loginchild": "أدخل بريدك الإلكتروني وكلمة المرور لتسجيل الدخول",
+      "emailInput": "البريد الإلكتروني",
+      "passwordinput": "كلمة المرور",
+      "loginBtn": "تسجيل الدخول",
+      "forgot_pass": "هل نسيت كلمة المرور؟",
+      "regQuestion": "جديد في ILMEAZY؟",
+      "regchild": "سجّل الآن وابدأ رحلتك كمدرس!",
+      "regBtn": "تسجيل"
+    },
+    "ChooseType": {
+      "screenName": "سجل",
+      "header1": "يرجى اختيار نوع ملفك الشخصي",
+      "saveBtn": "حفظ ومتابعة",
+      "Type": {
+        "type1": "معلم ILMEAZY",
+        "type2": "معلم لغة",
+        "type3": "مفتي",
+        "type4": "سفير"
+      }
+    },
+    "Register": {
+      "screenName": "سجّل كمدرس",
+      "header1": "أدخل التفاصيل أدناه. جميع الحقول مطلوبة.",
+      "nameinput": "الاسم الكامل",
+      "emailinput": "عنوان البريد الإلكتروني",
+      "contactinput": "رقم الهاتف المحمول",
+      "whatsappinput": "رقم الواتساب",
+      "first_checkbox": "استخدم هذا الرقم للواتساب",
+      "dobinput": "تاريخ الميلاد",
+      "header2": "قم بتعيين كلمة مرور حساب المدرس",
+      "passwordinput": "أدخل كلمة المرور",
+      "confirm_pass": "تأكيد كلمة المرور",
+      "second_checkbox": "أوافق على ",
+      "second_checkbox_underline": "الشروط والأحكام",
+      "regBtn": "تسجيل"
+    },
+
+    "Home": {
+      "welcomeMessage": "مرحبًا بك في Ilmeazy Tutor Hub",
+      "name": "محمد مرشد",
+      "ProfileInComplete": {
+        "header1": "أنت على وشك الانتهاء!",
+        "header2": "أكمل ملف تعريف المعلم الخاص بك عن طريق إضافة التفاصيل المفقودة وإرسال طلبك للمراجعة",
+        "Category": {
+          "category1": "حساب مستخدم المعلم",
+          "category2": "التفاصيل الشخصية",
+          "category3": "المؤهلات التعليمية",
+          "category4": "تفضيلات التدريس",
+          "category5": "المستندات ذات الصلة"
+        },
+        "completeBtn": "إكمال الملف الشخصي"
+      }
+    },
+    "Steps": {
+      "screenName": "أكمل ملفك الشخصي",
+      "Step2": {
+        "subtitle": "الخطوة 2 من 5",
+        "header1": "أدخل تفاصيلك الشخصية",
+        "mazhabDropdown": {
+          "placeholder": "المذهب"
+        },
+        "genderDropdown": {
+          "placeholder": "الجنس"
+        },
+        "header2": "العنوان",
+        "countryDropdown": {
+          "placeholder": "الدولة"
+        },
+        "stateDropdown": {
+          "placeholder": "الولاية"
+        },
+        "cityDropdown": {
+          "placeholder": "المدينة"
+        },
+        "Place_placeholder": "المكان",
+        "header3": "معلومات عني",
+        "bioPlaceholder": "أدخل سيرتك الذاتية"
+      },
+      "Step3": {
+        "subtitle": "الخطوة 3 من 5",
+        "header1": "أدخل مؤهلاتك التعليمية",
+        "GeducationDropdown": {
+          "placeholder": "المؤهل العام"
+        },
+        "IeducationDropdown": {
+          "placeholder": "المؤهل الإسلامي"
+        },
+        "header2": "خبرة التدريس",
+        "year": "سنة",
+        "months": "أشهر",
+        "header3": "اللغات المعروفة",
+        "langDropdown": {
+          "placeholder": "اللغات"
+        }
+      },
+      "Step4": {
+        "subtitle": "الخطوة 4 من 5",
+        "header1": "تفضيلات التدريس",
+        "T_typeDropdown": {
+          "placeholder": "نوع المعلم"
+        },
+        "teaching_lan_Dropdown": {
+          "placeholder": "لغة التدريس"
+        },
+        "courseDropdown": {
+          "placeholder": "الدورة"
+        },
+        "header2": "الفترة الزمنية المفضلة",
+        "slotCategory": {
+          "sesson": {
+            "title": "الجلسة",
+            "category1": "الصباح",
+            "category2": "بعد الظهر",
+            "category3": "المساء"
+          },
+          "duration": {
+            "title": "المدة",
+            "category1": "30 دقيقة",
+            "category2": "ساعة واحدة"
+          },
+          "timeslot": {
+            "title": "الوقت",
+            "category1": "06:00-06:30 صباحًا",
+            "category2": "06:30-07:00 صباحًا",
+            "category3": "07:00-07:30 صباحًا",
+            "category4": "07:30-08:30 صباحًا"
+          }
+        }
+      },
+      "Step5": {
+        "subtitle": "الخطوة 5 من 5",
+        "header1": "تحميل المستند",
+        "child1": "اتبع التعليمات التي تلقيتها في البريد الإلكتروني وقم بتحميله بأمان من هنا."
+      },
+      "stepBtn": "حفظ ومتابعة"
+    }
+  },
+  "id": {
+    "Login": {
+      "greeting": "Selamat datang di ILMEAZY Tutor Hub",
+      "loginchild": "Masukkan email dan kata sandi untuk masuk",
+      "emailInput": "Email",
+      "passwordinput": "Kata Sandi",
+      "loginBtn": "Masuk",
+      "forgot_pass": "Lupa Kata Sandi?",
+      "regQuestion": "Baru di ILMEAZY?",
+      "regchild": "Daftar sekarang dan mulai perjalanan Anda sebagai tutor!",
+      "regBtn": "Daftar"
+    },
+    "ChooseType": {
+      "screenName": "Daftar",
+      "header1": "Silakan pilih jenis profil Anda",
+      "saveBtn": "Simpan dan Lanjutkan",
+      "Type": {
+        "type1": "Tutor ILMEAZY",
+        "type2": "Tutor Bahasa",
+        "type3": "Mufti",
+        "type4": "Duta"
+      }
+    },
+    "Register": {
+      "screenName": "Daftar sebagai Tutor",
+      "header1": "Masukkan detail di bawah ini. Semua kolom wajib diisi.",
+      "nameinput": "Nama Lengkap",
+      "emailinput": "Alamat Email",
+      "contactinput": "Nomor Handphone",
+      "whatsappinput": "Nomor WhatsApp",
+      "first_checkbox": "Gunakan nomor ini untuk WhatsApp",
+      "dobinput": "Tanggal Lahir",
+      "header2": "Atur kata sandi akun tutor Anda",
+      "passwordinput": "Masukkan Kata Sandi",
+      "confirm_pass": "Konfirmasi Kata Sandi",
+      "second_checkbox": "Saya setuju dengan ",
+      "second_checkbox_underline": "Syarat & Ketentuan",
+      "regBtn": "Daftar"
+    },
+
+    "Home": {
+      "welcomeMessage": "Selamat datang di Ilmeazy Tutor Hub",
+      "name": "Mahammad Murshid",
+      "ProfileInComplete": {
+        "header1": "Kamu hampir selesai!",
+        "header2": "Lengkapi profil tutor Anda dengan menambahkan detail yang hilang dan kirimkan aplikasi Anda untuk ditinjau",
+        "Category": {
+          "category1": "Akun Pengguna Tutor",
+          "category2": "Detail Pribadi",
+          "category3": "Kualifikasi Pendidikan",
+          "category4": "Preferensi Mengajar",
+          "category5": "Dokumen yang Relevan"
+        },
+        "completeBtn": "Lengkapi Profil"
+      }
+    },
+    "Steps": {
+      "screenName": "Lengkapi Profil Anda",
+      "Step2": {
+        "subtitle": "Langkah 2 dari 5",
+        "header1": "Masukkan detail pribadi Anda",
+        "mazhabDropdown": {
+          "placeholder": "Mazhab"
+        },
+        "genderDropdown": {
+          "placeholder": "Jenis Kelamin"
+        },
+        "header2": "Alamat",
+        "countryDropdown": {
+          "placeholder": "Negara"
+        },
+        "stateDropdown": {
+          "placeholder": "Provinsi"
+        },
+        "cityDropdown": {
+          "placeholder": "Kota"
+        },
+        "Place_placeholder": "Tempat",
+        "header3": "Tentang Saya",
+        "bioPlaceholder": "Masukkan bio Anda"
+      },
+      "Step3": {
+        "subtitle": "Langkah 3 dari 5",
+        "header1": "Masukkan Kualifikasi Pendidikan Anda",
+        "GeducationDropdown": {
+          "placeholder": "Kualifikasi Umum"
+        },
+        "IeducationDropdown": {
+          "placeholder": "Kualifikasi Islam"
+        },
+        "header2": "Pengalaman Mengajar",
+        "year": "Tahun",
+        "months": "Bulan",
+        "header3": "Bahasa yang Diketahui",
+        "langDropdown": {
+          "placeholder": "Bahasa"
+        }
+      },
+      "Step4": {
+        "subtitle": "Langkah 4 dari 5",
+        "header1": "Preferensi Pengajaran",
+        "T_typeDropdown": {
+          "placeholder": "Jenis Tutor"
+        },
+        "teaching_lan_Dropdown": {
+          "placeholder": "Bahasa Pengajaran"
+        },
+        "courseDropdown": {
+          "placeholder": "Kursus"
+        },
+        "header2": "Waktu yang Disukai",
+        "slotCategory": {
+          "sesson": {
+            "title": "Sesi",
+            "category1": "Pagi",
+            "category2": "Siang",
+            "category3": "Malam"
+          },
+          "duration": {
+            "title": "Durasi",
+            "category1": "30 Menit",
+            "category2": "1 Jam"
+          },
+          "timeslot": {
+            "title": "Waktu",
+            "category1": "06:00-06:30 Pagi",
+            "category2": "06:30-07:00 Pagi",
+            "category3": "07:00-07:30 Pagi",
+            "category4": "07:30-08:30 Pagi"
+          }
+        }
+      },
+      "Step5": {
+        "subtitle": "Langkah 5 dari 5",
+        "header1": "Unggah Dokumen",
+        "child1": "Ikuti instruksi yang Anda terima dalam email dan unggah dengan aman dari sini."
+      },
+      "stepBtn": "Simpan & Lanjutkan"
+    }
+  }
+}
