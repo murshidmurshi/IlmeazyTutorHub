@@ -170,14 +170,13 @@ export default function Step4() {
         behavior={isPlatformIOS ? 'padding' : 'height'} // Adjust behavior for iOS
         className="flex-1 justify-center "
         keyboardVerticalOffset={5} // Adjust this value as needed
-      >
+        style={{backgroundColor: colors.background_default}}>
         <SafeAreaView className="flex-1 justify-center">
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View className="flex-1 ">
               <ScrollView
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
-                style={{backgroundColor: colors.background_default}}
                 className="flex-1 pb-4">
                 <Formik
                   innerRef={formikRef}

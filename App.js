@@ -12,8 +12,6 @@ import { I18nManager } from 'react-native';
 // console.log('Is RTL:', I18nManager.isRTL); // Should print true if RTL is enabled
 
 
-
-
 export default function App() {
   // useEffect(() => {
   //   // Hide the splash screen with fade effect after a delay

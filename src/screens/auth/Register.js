@@ -67,8 +67,9 @@ export default function Register() {
   const [currentField, setCurrentField] = useState(null); // <- NEW
   const [visible, setVisible] = useState(false);
 
+
   const onSelect = selectedCountry => {
-    let countryCode = selectedCountry?.dial_code;
+    let countryCode = `+ ${selectedCountry?.callingCode[0]}`;
     if (currentField === 'contact') {
       setCountryContact(countryCode);
     } else if (currentField === 'whatsapp_number') {
@@ -145,8 +146,6 @@ export default function Register() {
     }
   };
   const formattedDate = moment(date).format('DD MMM YYYY');
-  console.log(formattedDate, 'formattedDate');
-
   const [showPass1, setShowPass1] = useState(false);
   const [showPass2, setShowPass2] = useState(false);
 
@@ -164,16 +163,20 @@ export default function Register() {
   return (
     <>
       <AppHeader screenName={screenName} />
-      <SafeAreaView className="flex-1">
+      <SafeAreaView
+        className="flex-1"
+        style={{backgroundColor: colors.background_default}}>
         <KeyboardAvoidingView
           behavior={isPlatformIOS ? 'padding' : 'height'}
-          style={{flex: 1}}>
+          style={{flex: 1}}
+          keyboardVerticalOffset={isPlatformIOS ? 100 : 0} // adjust the offset (try different values)
+        >
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View className="flex-1 ">
+            <View className="flex-1">
               <ScrollView
                 contentContainerStyle={{flexGrow: 1}} // Ensures scrollability
                 showsVerticalScrollIndicator={false}
-                style={{backgroundColor: colors.background_default}}>
+                showsHorizontalScrollIndicator={false}>
                 <Formik
                   innerRef={formikRef}
                   initialValues={{
@@ -296,7 +299,6 @@ export default function Register() {
                             />
                           }
                         />
-                        
                       </View>
 
                       {/* header 2 */}
@@ -355,7 +357,7 @@ export default function Register() {
 
               {/* Fixed Bottom Button */}
               <View
-                className="p-4 pt-1 shadow-xl flex-1"
+                className="p-4 pt-1 shadow-xl"
                 style={{
                   backgroundColor: colors.background_default,
                 }}>

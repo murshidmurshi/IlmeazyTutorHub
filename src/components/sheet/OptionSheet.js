@@ -32,12 +32,11 @@ export default function OptionSheet({
       setSelectedValue('');
     }
   }, [optionKey, selectedData]);
-  
 
   // ✅ Update selectedData state and formik when selection changes
   useEffect(() => {
     if (!selectedValue) return;
-  
+
     setselectedData(prev => {
       const safePrev = Array.isArray(prev) ? prev : []; // 🛡️ Defensive fallback
       const updated = safePrev.map(item =>
@@ -47,13 +46,12 @@ export default function OptionSheet({
       if (!exists) {
         updated.push({type: optionKey, value: selectedValue});
       }
-  
+
       formik.setFieldValue(optionKey, selectedValue);
       return updated;
     });
   }, [selectedValue]);
-  
-  
+
   const renderBackdrop = useCallback(
     props => (
       <BottomSheetBackdrop
