@@ -58,8 +58,6 @@ export default function Step3() {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const [selectedData, setselectedData] = useState([]);
-  console.log(selectedData, 'selectedData');
-
   const sheetRef = useRef(null);
   let navigation = useNavigation();
   const generalE_option = {
@@ -137,8 +135,6 @@ export default function Step3() {
   });
 
   const handleInputPress = type => {
-    console.log(type, 'type');
-
     // Set the selected option dynamically
     if (type === 'generalQualification') {
       setSelectedOption(generalE_option);
@@ -152,7 +148,6 @@ export default function Step3() {
   };
 
   const onSubmit = async values => {
-    console.log(values, 'values');
     navigation.navigate('Step4');
   };
 
@@ -173,14 +168,13 @@ export default function Step3() {
         behavior={isPlatformIOS ? 'padding' : 'height'} // Adjust behavior for iOS
         className="flex-1 justify-center "
         keyboardVerticalOffset={5} // Adjust this value as needed
-      >
+        style={{backgroundColor: colors.background_default}}>
         <SafeAreaView className="flex-1 justify-center">
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View className="flex-1 ">
               <ScrollView
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
-                style={{backgroundColor: colors.background_default}}
                 className="flex-1 pb-4">
                 <Formik
                   innerRef={formikRef}

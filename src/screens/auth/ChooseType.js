@@ -45,11 +45,12 @@ export default function ChooseType() {
   return (
     <>
       <AppHeader screenName={screenName} />
-      <SafeAreaView className="flex-1">
+      <SafeAreaView
+        className="flex-1"
+        style={{backgroundColor: colors.background_default}}>
         <ScrollView
           contentContainerStyle={{flexGrow: 1}} // Ensures scrollability
-          showsVerticalScrollIndicator={false}
-          style={{backgroundColor: colors.background_default}}>
+          showsVerticalScrollIndicator={false}>
           {/* header 1 */}
           <InputHeader label={header1} />
 
@@ -83,7 +84,7 @@ export default function ChooseType() {
         </ScrollView>
         {/* Fixed Bottom Button */}
         <View
-          className="p-4 pt-1 shadow-xl "
+          className="p-4 pt-1 shadow-xl  "
           style={{
             backgroundColor: colors.background_default,
           }}>
